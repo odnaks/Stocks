@@ -1,0 +1,87 @@
+//
+//  API.swift
+//  YandexSchool
+//
+//  Created by Kseniya Lukoshkina on 22.03.2021.
+//
+
+import UIKit
+import Alamofire
+
+enum NetworkError: Error {
+	case parseError
+	case apiError
+}
+
+class API {
+	
+	let headers: HTTPHeaders = HTTPHeaders([HTTPHeader(name: "x-rapidapi-key", value: "afc4ebcfcemsha34c67ea4991f81p1ce626jsnfd9af1de4751"),
+											HTTPHeader(name: "x-rapidapi-host", value: "apidojo-yahoo-finance-v1.p.rapidapi.com")])
+	
+	let queue = DispatchQueue(label: "favAdv", qos: .background, attributes: .concurrent)
+	
+	func getSummary(with ticker: String, _ completion: @escaping ((Stock?, NetworkError?) -> Void)) {
+		AF.request(URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")!,
+				   method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+					
+					switch response.result {
+					case .success(let data):
+						
+						guard let data = data as? [String: Any],
+							  let symbol = data["symbol"] as? String,
+							  let prices = data["price"] as? [String: Any],
+							  let currentPriceArr = prices["regularMarketPrice"] as? [String: Any],
+							  let currentPrice = currentPriceArr["fmt"] as? String,
+							  let changeValueArr = prices["regularMarketChange"] as? [String: Any],
+							  let changeValue = changeValueArr["fmt"] as? String,
+							  let changePercentArr = prices["regularMarketChangePercent"] as? [String: Any],
+							  let changePercent = changePercentArr["fmt"] as? String,
+							  let name = prices["shortName"] as? String,
+							  // url for loading logo
+							  let company = data["assetProfile"] as? [String: Any],
+							  let websiteStr = company["website"] as? String,
+							  let websiteUrl = URL(string: websiteStr),
+							  let domain = websiteUrl.host,
+							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { completion(nil, .parseError); return }
+						let stock = Stock(ticker: symbol, name: name, currentPrice: currentPrice,
+										  changeValue: changeValue, changePercent: changePercent, website: website)
+						DispatchQueue.main.async {
+							completion(stock, nil)
+						}
+					case .failure(let error):
+						
+						DispatchQueue.main.async {
+							completion(nil, .apiError)
+						}
+					}
+		}
+		
+	}
+
+	func getTrands(_ completion: @escaping (([Stock]?, NetworkError?) -> Void)) {
+		AF.request(URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-trending-tickers?region=US")!,
+				   method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+					switch response.result {
+					case .success(let data):
+						var trands = [Stock]()
+						guard let data = data as? [String: Any],
+							  let finance = data["finance"] as? [String: Any],
+							  let results = finance["result"] as? Array<Any>,
+							  let result = results[0] as? [String: Any],
+							  let quotes = result["quotes"] as? Array<Any> else { completion(nil, .parseError); return }
+						
+						for anyQuote in quotes {
+							guard let quote = anyQuote as? [String: Any],
+								  let symbol = quote["symbol"] as? String else { completion(nil, .parseError); return }
+							trands.append(Stock(symbol))
+						}
+						DispatchQueue.main.async {
+							completion(trands, nil)
+						}
+					case .failure(_):
+						completion(nil, .apiError)
+					}
+		}
+		
+	}
+}

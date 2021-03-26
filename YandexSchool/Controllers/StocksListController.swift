@@ -18,8 +18,9 @@ class StocksListController: UIViewController {
 								   Stock("amzn"), Stock("bac"), Stock("MSFT"), Stock("TSLA")]*/
 
 	@IBOutlet weak var tableView: UITableView?
-	@IBOutlet weak var titleCollectionView: UICollectionView?
+//	@IBOutlet weak var titleCollectionView: UICollectionView?
 	
+	@IBOutlet weak var menuScrollView: MenuScrollView?
 	private var stocks = [Stock]()
 	private lazy var api = API()
 	
@@ -27,11 +28,11 @@ class StocksListController: UIViewController {
 		super.viewDidLoad()
 		
 		tableView?.dataSource = self
-		titleCollectionView?.dataSource = self
-		titleCollectionView?.delegate = self
-		titleCollectionView?.allowsMultipleSelection = false
+//		titleCollectionView?.dataSource = self
+//		titleCollectionView?.delegate = self
+//		titleCollectionView?.allowsMultipleSelection = false
 		
-		getStocks()
+//		getStocks()
 		
 //		let start = CFAbsoluteTimeGetCurrent()
 		
@@ -54,6 +55,8 @@ class StocksListController: UIViewController {
 //		stocks[2].website = URL(string: "https://logo.clearbit.com/abc.xyz")
 //
 //		tableView?.reloadData()
+		
+		menuScrollView?.setupWith(["hello", "it's me!"])
 
 	}
 	
@@ -112,23 +115,23 @@ extension StocksListController: UITableViewDataSource {
 	
 }
 
-extension StocksListController: UICollectionViewDataSource, UICollectionViewDelegate {
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		2
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = titleCollectionView?.dequeueReusableCell(withReuseIdentifier: "titleCell", for: indexPath) as? TitleCell else { return UICollectionViewCell() }
-		cell.isSelected = indexPath.row == 0 ? true : false
-		cell.titleLabel?.text = indexPath.row == 0 ? "Stocks" : "Favourite"
-		
-		return cell
-	}
-	
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		guard let cell = collectionView.cellForItem(at: indexPath) as? TitleCell else { return }
-
-		cell.isSelected = true
-	}
-	
-}
+//extension StocksListController: UICollectionViewDataSource, UICollectionViewDelegate {
+//	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//		2
+//	}
+//
+//	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//		guard let cell = titleCollectionView?.dequeueReusableCell(withReuseIdentifier: "titleCell", for: indexPath) as? TitleCell else { return UICollectionViewCell() }
+//		cell.isSelected = indexPath.row == 0 ? true : false
+//		cell.titleLabel?.text = indexPath.row == 0 ? "Stocks" : "Favourite"
+//
+//		return cell
+//	}
+//
+//	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//		guard let cell = collectionView.cellForItem(at: indexPath) as? TitleCell else { return }
+//
+//		cell.isSelected = true
+//	}
+//
+//}

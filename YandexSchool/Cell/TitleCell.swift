@@ -25,13 +25,11 @@ class TitleCell: UICollectionViewCell {
 //				let newLabel = UILabel(frame: label.frame)
 //				newLabel.font = UIFont(name: "Montserrat-Bold", size: 28)
 //				newLabel.text = label.text
-////				newLabel.siz
 //				newLabel.adjustsFontSizeToFitWidth = true
 //				newLabel.sizeToFit()
 //				print(label.bounds)
 //				print(newLabel.bounds)
 
-				
 				titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 28)
 
 //				UIView.animate(withDuration: 1.5) {
@@ -41,8 +39,7 @@ class TitleCell: UICollectionViewCell {
 				
 				titleLabel?.updateConstraints()
 				titleLabel?.adjustsFontSizeToFitWidth = true
-				
-				
+
 				layoutIfNeeded()
 				updateConstraints()
 			} else {
@@ -61,4 +58,3 @@ class TitleCell: UICollectionViewCell {
 	}
 	
 }
-

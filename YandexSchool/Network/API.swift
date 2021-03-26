@@ -14,19 +14,15 @@ enum NetworkError: Error {
 }
 
 class API {
-	
 	let headers: HTTPHeaders = HTTPHeaders([HTTPHeader(name: "x-rapidapi-key", value: "afc4ebcfcemsha34c67ea4991f81p1ce626jsnfd9af1de4751"),
 											HTTPHeader(name: "x-rapidapi-host", value: "apidojo-yahoo-finance-v1.p.rapidapi.com")])
-	
 	let queue = DispatchQueue(label: "favAdv", qos: .background, attributes: .concurrent)
 	
-	func getSummary(with ticker: String, _ completion: @escaping ((Stock?, NetworkError?) -> Void)) {
+	func getSummary(with ticker: String, _ completion: @escaping (Result<Stock, NetworkError>) -> Void) {
 		AF.request(URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")!,
 				   method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
-					
 					switch response.result {
 					case .success(let data):
-						
 						guard let data = data as? [String: Any],
 							  let symbol = data["symbol"] as? String,
 							  let prices = data["price"] as? [String: Any],
@@ -42,23 +38,18 @@ class API {
 							  let websiteStr = company["website"] as? String,
 							  let websiteUrl = URL(string: websiteStr),
 							  let domain = websiteUrl.host,
-							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { completion(nil, .parseError); return }
+							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 						let stock = Stock(ticker: symbol, name: name, currentPrice: currentPrice,
 										  changeValue: changeValue, changePercent: changePercent, website: website)
-						DispatchQueue.main.async {
-							completion(stock, nil)
-						}
-					case .failure(let error):
-						
-						DispatchQueue.main.async {
-							completion(nil, .apiError)
-						}
+						DispatchQueue.main.async { completion(.success(stock)) }
+					case .failure:
+						DispatchQueue.main.async { completion(.failure(.apiError)) }
 					}
 		}
 		
 	}
 
-	func getTrands(_ completion: @escaping (([Stock]?, NetworkError?) -> Void)) {
+	func getTrands(_ completion: @escaping (Result<[Stock], NetworkError>) -> Void) {
 		AF.request(URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-trending-tickers?region=US")!,
 				   method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
@@ -66,20 +57,18 @@ class API {
 						var trands = [Stock]()
 						guard let data = data as? [String: Any],
 							  let finance = data["finance"] as? [String: Any],
-							  let results = finance["result"] as? Array<Any>,
+							  let results = finance["result"] as? [Any],
 							  let result = results[0] as? [String: Any],
-							  let quotes = result["quotes"] as? Array<Any> else { completion(nil, .parseError); return }
+							  let quotes = result["quotes"] as? [Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 						
 						for anyQuote in quotes {
 							guard let quote = anyQuote as? [String: Any],
-								  let symbol = quote["symbol"] as? String else { completion(nil, .parseError); return }
+								  let symbol = quote["symbol"] as? String else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 							trands.append(Stock(symbol))
 						}
-						DispatchQueue.main.async {
-							completion(trands, nil)
-						}
-					case .failure(_):
-						completion(nil, .apiError)
+						DispatchQueue.main.async { completion(.success(trands)) }
+					case .failure:
+						DispatchQueue.main.async { completion(.failure(.apiError)) }
 					}
 		}
 		

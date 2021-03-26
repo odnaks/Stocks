@@ -10,7 +10,6 @@ import Kingfisher
 
 class StocksListController: UIViewController {
 	
-	private var stocks = [Stock]()
 	/*[Stock("aapl"), Stock("yndx"), Stock("googl"),
 								   Stock("amzn"), Stock("bac"), Stock("MSFT"), Stock("TSLA"),
 								   Stock("aapl"), Stock("yndx"), Stock("googl"),
@@ -21,6 +20,9 @@ class StocksListController: UIViewController {
 	@IBOutlet weak var tableView: UITableView?
 	@IBOutlet weak var titleCollectionView: UICollectionView?
 	
+	private var stocks = [Stock]()
+	private lazy var api = API()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -29,8 +31,9 @@ class StocksListController: UIViewController {
 		titleCollectionView?.delegate = self
 		titleCollectionView?.allowsMultipleSelection = false
 		
-		let api = API()
-		let start = CFAbsoluteTimeGetCurrent()
+		getStocks()
+		
+//		let start = CFAbsoluteTimeGetCurrent()
 		
 //		stocks[0].changePercent = "2.1%"
 //		stocks[0].changeValue = "23.3"
@@ -51,39 +54,40 @@ class StocksListController: UIViewController {
 //		stocks[2].website = URL(string: "https://logo.clearbit.com/abc.xyz")
 //
 //		tableView?.reloadData()
-		
-		api.getTrands { [weak self] data,_ in
-			guard let data = data else { return }
-			self?.stocks = data
-			self?.tableView?.reloadData()
-			
-			for (index, stock) in data.enumerated() {
-				api.getSummary(with: stock.ticker) { [weak self] data, error in
-					if let stock = data {
-						self?.stocks[index] = stock
+
+	}
 	
-						print("time: \(CFAbsoluteTimeGetCurrent() - start)")
-	
-						let indexPath = IndexPath(row: index, section: 0)
-						self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
-					}
-				}
-				break
+	private func getStocks() {
+		api.getTrands { [weak self] result in
+			switch result {
+			case .success(let data):
+				self?.stocks = data
+				self?.tableView?.reloadData()
+				self?.getSummaryInfo()
+			case .failure:
+				// [need fix]
+				print("err")
 			}
 		}
-		
-//		for (index, stock) in stocks.enumerated() {
-//			api.getSummary(with: stock.ticker) { [weak self] data, error in
-//				if let stock = data {
-//					self?.stocks[index] = stock
-//
-//					print("time: \(CFAbsoluteTimeGetCurrent() - start)")
-//
-//					let indexPath = IndexPath(row: index, section: 0)
-//					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
-//				}
-//			}
-//		}
+	}
+	
+	private func getSummaryInfo() {
+		for (index, stock) in stocks.enumerated() {
+			api.getSummary(with: stock.ticker) { [weak self] result in
+				switch result {
+				case .success(let data):
+					self?.stocks[index] = data
+					let indexPath = IndexPath(row: index, section: 0)
+					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
+				case .failure:
+					// [need fix]
+					print("err")
+					
+				}
+			}
+			// [need fix] anti 429 error
+			break
+		}
 	}
 	
 }
@@ -102,7 +106,6 @@ extension StocksListController: UITableViewDataSource {
 		cell.currentPriceLabel?.text = stock.currentPrice
 		cell.changeValueLabel?.text = stock.changeValue
 		cell.changePercentLabel?.text = stock.changePercent
-//		cell.logoImageView?.image = stock.image
 		cell.logoImageView?.kf.setImage(with: stock.website)
 		return cell
 	}
@@ -116,9 +119,7 @@ extension StocksListController: UICollectionViewDataSource, UICollectionViewDele
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = titleCollectionView?.dequeueReusableCell(withReuseIdentifier: "titleCell", for: indexPath) as? TitleCell else { return UICollectionViewCell() }
-//		if indexPath.row == 0 {
 		cell.isSelected = indexPath.row == 0 ? true : false
-//		}
 		cell.titleLabel?.text = indexPath.row == 0 ? "Stocks" : "Favourite"
 		
 		return cell

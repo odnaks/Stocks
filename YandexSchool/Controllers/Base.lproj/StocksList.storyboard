@@ -44,7 +44,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iXL-ea-UCT">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iXL-ea-UCT">
                                 <rect key="frame" x="0.0" y="175" width="414" height="721"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -140,6 +140,7 @@
                                             <outlet property="currentPriceLabel" destination="G6U-bB-02z" id="S2y-ew-VxM"/>
                                             <outlet property="logoImageView" destination="neL-Jo-u2X" id="vUE-VX-yqD"/>
                                             <outlet property="nameLabel" destination="gIa-dd-nZc" id="jtP-DP-u2m"/>
+                                            <outlet property="starButton" destination="RqZ-WJ-wN1" id="LQ5-be-6DN"/>
                                             <outlet property="tickerLabel" destination="Ky9-d9-OLl" id="0Ab-Im-3WY"/>
                                         </connections>
                                     </tableViewCell>

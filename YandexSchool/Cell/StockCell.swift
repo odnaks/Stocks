@@ -17,6 +17,7 @@ class StockCell: UITableViewCell {
 	@IBOutlet weak var currentPriceLabel: UILabel?
 	@IBOutlet weak var changePriceLabel: UILabel?
 	@IBOutlet weak var bgView: UIView?
+	@IBOutlet weak var starButton: UIButton?
 	
 	private var stock: Stock?
 	private var isEven: Bool = false
@@ -43,6 +44,9 @@ class StockCell: UITableViewCell {
 		currentPriceLabel?.text = nil
 		changePriceLabel?.text = nil
 		logoImageView?.image = nil
+		starButton?.changeColor(.clear)
+		bgView?.backgroundColor = .clear
+//		starButton?.imageView?.image = nil
 	}
 	
 	func configure(with stock: Stock, isEven: Bool) {
@@ -54,7 +58,7 @@ class StockCell: UITableViewCell {
 			  let symbol = stock.symbol,
 			  let changeValue = stock.changeValue,
 			  let changePercent = stock.changePercent,
-			  let website = stock.website else { print("configure err"); return }
+			  let website = stock.website else { return }
 		
 		bgView?.backgroundColor = isEven ? UIColor(red: 0.94, green: 0.96, blue: 0.97, alpha: 1.00) : .white
 		tickerLabel?.text = stock.ticker

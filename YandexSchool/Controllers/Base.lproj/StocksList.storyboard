@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,25 +64,25 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7V-Dz-ouR">
-                                                    <rect key="frame" x="303" y="28" width="42" height="21"/>
+                                                    <rect key="frame" x="303.5" y="28" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Z4-4i-JUw">
-                                                    <rect key="frame" x="303" y="58" width="42" height="21"/>
+                                                    <rect key="frame" x="303.5" y="57.5" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ug5-VU-Vqu">
-                                                    <rect key="frame" x="303" y="87" width="42" height="21"/>
+                                                    <rect key="frame" x="303.5" y="86" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYc-F0-3ub">
-                                                    <rect key="frame" x="161" y="86" width="42" height="21"/>
+                                                    <rect key="frame" x="161" y="86" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -115,46 +116,33 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Db9-Mw-hsi" customClass="MenuScrollView" customModule="YandexSchool" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="414" height="75"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uFM-Kw-zWE" customClass="MenuStack" customModule="YandexSchool" customModuleProvider="target">
+                                <rect key="frame" x="20" y="100" width="46" height="63"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lyx-DY-CN3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="75" id="1c0-pM-wK0"/>
-                                        </constraints>
-                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prk-Jf-gSs">
+                                        <rect key="frame" x="0.0" y="33" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="lyx-DY-CN3" firstAttribute="top" secondItem="Db9-Mw-hsi" secondAttribute="top" id="ASj-xc-Dvo"/>
-                                    <constraint firstItem="KY6-ly-1eL" firstAttribute="trailing" secondItem="lyx-DY-CN3" secondAttribute="trailing" id="GPi-hx-Kzr"/>
-                                    <constraint firstItem="lyx-DY-CN3" firstAttribute="leading" secondItem="Db9-Mw-hsi" secondAttribute="leading" id="axG-rp-XvO"/>
-                                    <constraint firstAttribute="trailing" secondItem="lyx-DY-CN3" secondAttribute="trailing" constant="19" id="foe-3O-JrR"/>
-                                    <constraint firstAttribute="bottom" secondItem="lyx-DY-CN3" secondAttribute="bottom" id="uaJ-3x-pho"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="HCb-0F-uoZ"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="KY6-ly-1eL"/>
-                            </scrollView>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MdD-6g-Kqt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Db9-Mw-hsi" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" id="0Og-Um-g4l"/>
                             <constraint firstItem="MdD-6g-Kqt" firstAttribute="trailing" secondItem="iXL-ea-UCT" secondAttribute="trailing" id="8s7-nq-M8T"/>
-                            <constraint firstItem="iXL-ea-UCT" firstAttribute="top" secondItem="Db9-Mw-hsi" secondAttribute="bottom" id="FFB-3O-3Ms"/>
                             <constraint firstItem="MdD-6g-Kqt" firstAttribute="trailing" secondItem="mmq-cg-VUw" secondAttribute="trailing" id="GGv-0J-w8X"/>
                             <constraint firstItem="iXL-ea-UCT" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" id="Ktq-Fb-MND"/>
-                            <constraint firstItem="MdD-6g-Kqt" firstAttribute="trailing" secondItem="Db9-Mw-hsi" secondAttribute="trailing" id="QRp-hz-zYV"/>
+                            <constraint firstItem="uFM-Kw-zWE" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" constant="20" id="P5o-Pp-MgB"/>
+                            <constraint firstItem="uFM-Kw-zWE" firstAttribute="top" secondItem="mmq-cg-VUw" secondAttribute="bottom" id="RsB-G5-cgb"/>
                             <constraint firstItem="mmq-cg-VUw" firstAttribute="top" secondItem="MdD-6g-Kqt" secondAttribute="top" id="ghO-Uy-UE5"/>
                             <constraint firstItem="mmq-cg-VUw" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" id="mMC-1o-Kah"/>
                             <constraint firstAttribute="bottom" secondItem="iXL-ea-UCT" secondAttribute="bottom" id="q36-Hk-VQM"/>
-                            <constraint firstItem="Db9-Mw-hsi" firstAttribute="top" secondItem="mmq-cg-VUw" secondAttribute="bottom" id="tPS-lN-dMI"/>
+                            <constraint firstItem="iXL-ea-UCT" firstAttribute="top" secondItem="uFM-Kw-zWE" secondAttribute="bottom" constant="12" id="vhD-MN-f1R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PeN-fh-HrE"/>
                     <connections>
-                        <outlet property="menuScrollView" destination="Db9-Mw-hsi" id="yyW-1B-38Q"/>
+                        <outlet property="menuStack" destination="uFM-Kw-zWE" id="y29-Nk-njY"/>
                         <outlet property="tableView" destination="iXL-ea-UCT" id="ZW3-mc-ZEz"/>
                     </connections>
                 </viewController>

@@ -20,14 +20,20 @@ class StocksListController: UIViewController {
 	@IBOutlet weak var tableView: UITableView?
 //	@IBOutlet weak var titleCollectionView: UICollectionView?
 	
-	@IBOutlet weak var menuScrollView: MenuScrollView?
+	@IBOutlet weak var menuStack: MenuStack?
+	//	@IBOutlet weak var menuScrollView: MenuScrollView?
 	private var stocks = [Stock]()
 	private lazy var api = API()
+	
+	private var currentMenuItem = 0
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		tableView?.dataSource = self
+		
+		menuStack?.delegate = self
+		menuStack?.configure(with: ["Stocks", "Favourite"])
 //		titleCollectionView?.dataSource = self
 //		titleCollectionView?.delegate = self
 //		titleCollectionView?.allowsMultipleSelection = false
@@ -56,8 +62,12 @@ class StocksListController: UIViewController {
 //
 //		tableView?.reloadData()
 		
-		menuScrollView?.setupWith(["hello", "it's me!"])
+//		menuScrollView?.setupWith(["hello", "it's me!"])
 
+	}
+	
+	@IBAction func clickMenuItem(_ sender: UIButton) {
+		print(sender.tag)
 	}
 	
 	private func getStocks() {
@@ -95,6 +105,12 @@ class StocksListController: UIViewController {
 	
 }
 
+extension StocksListController: MenuStackDelegate {
+	func changeMenu(index: Int) {
+		print(index)
+	}
+}
+
 extension StocksListController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return stocks.count
@@ -114,24 +130,3 @@ extension StocksListController: UITableViewDataSource {
 	}
 	
 }
-
-//extension StocksListController: UICollectionViewDataSource, UICollectionViewDelegate {
-//	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//		2
-//	}
-//
-//	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//		guard let cell = titleCollectionView?.dequeueReusableCell(withReuseIdentifier: "titleCell", for: indexPath) as? TitleCell else { return UICollectionViewCell() }
-//		cell.isSelected = indexPath.row == 0 ? true : false
-//		cell.titleLabel?.text = indexPath.row == 0 ? "Stocks" : "Favourite"
-//
-//		return cell
-//	}
-//
-//	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//		guard let cell = collectionView.cellForItem(at: indexPath) as? TitleCell else { return }
-//
-//		cell.isSelected = true
-//	}
-//
-//}

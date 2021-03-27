@@ -13,6 +13,7 @@ struct Stock {
 	var currentPrice: String?
 	var changeValue: String?
 	var changePercent: String?
+	var symbol: String?
 	var website: URL?
 //	var image: UIImage?
 	
@@ -20,12 +21,13 @@ struct Stock {
 		self.ticker = ticker
 	}
 	
-	init(ticker: String, name: String, currentPrice: String, changeValue: String, changePercent: String, website: URL) {
+	init(ticker: String, name: String, currentPrice: String, changeValue: String, changePercent: String, symbol: String, website: URL) {
 		self.ticker = ticker
 		self.name = name
 		self.currentPrice = currentPrice
 		self.changeValue = changeValue
 		self.changePercent = changePercent
+		self.symbol = symbol
 		self.website = website
 	}
 }

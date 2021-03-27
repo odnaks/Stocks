@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E29205FDA68A0AF070D72EB9 /* Pods_YandexSchool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58CF1DB8627F8CC76F1E32E6 /* Pods_YandexSchool.framework */; };
 		F02657AF260938780011AA21 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02657AE260938780011AA21 /* Stock.swift */; };
-		F02EF16D260B3E2B0090957C /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02EF16C260B3E2B0090957C /* TitleCell.swift */; };
 		F02EF182260B41E60090957C /* Montserrat-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F02EF170260B41E40090957C /* Montserrat-LightItalic.ttf */; };
 		F02EF183260B41E60090957C /* Montserrat-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F02EF171260B41E40090957C /* Montserrat-Black.ttf */; };
 		F02EF184260B41E60090957C /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F02EF172260B41E40090957C /* Montserrat-ExtraLightItalic.ttf */; };
@@ -44,7 +43,6 @@
 		A21A87CBF872D119727414F8 /* Pods-YandexSchool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexSchool.release.xcconfig"; path = "Target Support Files/Pods-YandexSchool/Pods-YandexSchool.release.xcconfig"; sourceTree = "<group>"; };
 		CED1F708B610EC6A0AB846F4 /* Pods-YandexSchool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YandexSchool.debug.xcconfig"; path = "Target Support Files/Pods-YandexSchool/Pods-YandexSchool.debug.xcconfig"; sourceTree = "<group>"; };
 		F02657AE260938780011AA21 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
-		F02EF16C260B3E2B0090957C /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
 		F02EF170260B41E40090957C /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
 		F02EF171260B41E40090957C /* Montserrat-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Black.ttf"; sourceTree = "<group>"; };
 		F02EF172260B41E40090957C /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -203,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				F06A64172609473C001CD275 /* StockCell.swift */,
-				F02EF16C260B3E2B0090957C /* TitleCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -359,7 +356,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F058B38B2607EE50004E76FB /* StocksListController.swift in Sources */,
-				F02EF16D260B3E2B0090957C /* TitleCell.swift in Sources */,
 				F058B3652607D4A0004E76FB /* AppDelegate.swift in Sources */,
 				F06A64182609473C001CD275 /* StockCell.swift in Sources */,
 				F058B38F2607F02D004E76FB /* API.swift in Sources */,

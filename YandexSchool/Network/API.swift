@@ -19,13 +19,14 @@ class API {
 	let queue = DispatchQueue(label: "favAdv", qos: .background, attributes: .concurrent)
 	
 	func getSummary(with ticker: String, _ completion: @escaping (Result<Stock, NetworkError>) -> Void) {
-		AF.request(URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")!,
-				   method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)") else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+		AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
 						guard let data = data as? [String: Any],
-							  let symbol = data["symbol"] as? String,
+							  let ticker = data["symbol"] as? String,
 							  let prices = data["price"] as? [String: Any],
+							  let symbol = prices["currencySymbol"] as? String,
 							  let currentPriceArr = prices["regularMarketPrice"] as? [String: Any],
 							  let currentPrice = currentPriceArr["fmt"] as? String,
 							  let changeValueArr = prices["regularMarketChange"] as? [String: Any],
@@ -39,8 +40,8 @@ class API {
 							  let websiteUrl = URL(string: websiteStr),
 							  let domain = websiteUrl.host,
 							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
-						let stock = Stock(ticker: symbol, name: name, currentPrice: currentPrice,
-										  changeValue: changeValue, changePercent: changePercent, website: website)
+						let stock = Stock(ticker: ticker, name: name, currentPrice: currentPrice,
+										  changeValue: changeValue, changePercent: changePercent, symbol: symbol, website: website)
 						DispatchQueue.main.async { completion(.success(stock)) }
 					case .failure:
 						DispatchQueue.main.async { completion(.failure(.apiError)) }
@@ -63,7 +64,10 @@ class API {
 						
 						for anyQuote in quotes {
 							guard let quote = anyQuote as? [String: Any],
-								  let symbol = quote["symbol"] as? String else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+								  var symbol = quote["symbol"] as? String else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+//							if let i = symbol.firstIndex(of: "^") {
+//								symbol.remove(at: i)
+//							}
 							trands.append(Stock(symbol))
 						}
 						DispatchQueue.main.async { completion(.success(trands)) }

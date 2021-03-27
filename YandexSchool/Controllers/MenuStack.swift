@@ -72,6 +72,8 @@ class MenuStack: UIStackView {
 				if button.tag == currentPosition {
 					button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 28)
 					button.setTitleColor(.black, for: .normal)
+					
+					button.bounds.size.height = 32
 //					seasonButton.widthConstr?.constant = 80
 //					seasonButton.backgroundColor = UIColor.startMainProductTextColor
 //					seasonButton.setTitleColor(UIColor(netHex: 0x1D1F23), for: .normal)
@@ -79,6 +81,8 @@ class MenuStack: UIStackView {
 				} else {
 					button.titleLabel?.font = UIFont(name: "Montserrat-Bold", size: 18)
 					button.setTitleColor(.gray, for: .normal)
+					
+					button.bounds.size.height = 24
 //					seasonButton.widthConstr?.constant = 41
 //					seasonButton.backgroundColor = .clear
 //					seasonButton.setTitleColor(UIColor.startMainProductTextColor, for: .normal)

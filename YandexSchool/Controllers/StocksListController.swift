@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class StocksListController: UIViewController {
 	
@@ -18,13 +17,10 @@ class StocksListController: UIViewController {
 								   Stock("amzn"), Stock("bac"), Stock("MSFT"), Stock("TSLA")]*/
 
 	@IBOutlet weak var tableView: UITableView?
-//	@IBOutlet weak var titleCollectionView: UICollectionView?
-	
 	@IBOutlet weak var menuStack: MenuStack?
-	//	@IBOutlet weak var menuScrollView: MenuScrollView?
+	
 	private var stocks = [Stock]()
 	private lazy var api = API()
-	
 	private var currentMenuItem = 0
 	
 	override func viewDidLoad() {
@@ -38,7 +34,7 @@ class StocksListController: UIViewController {
 //		titleCollectionView?.delegate = self
 //		titleCollectionView?.allowsMultipleSelection = false
 		
-//		getStocks()
+		getStocks()
 		
 //		let start = CFAbsoluteTimeGetCurrent()
 		
@@ -66,40 +62,49 @@ class StocksListController: UIViewController {
 
 	}
 	
-	@IBAction func clickMenuItem(_ sender: UIButton) {
-		print(sender.tag)
-	}
-	
 	private func getStocks() {
 		api.getTrands { [weak self] result in
 			switch result {
 			case .success(let data):
 				self?.stocks = data
-				self?.tableView?.reloadData()
+//				self?.tableView?.reloadData()
 				self?.getSummaryInfo()
 			case .failure:
 				// [need fix]
-				print("err")
+				print("getStocks err")
 			}
 		}
 	}
 	
 	private func getSummaryInfo() {
+		
+		var deletedStockIndexes = [Int]()
+		
+		let dispatchGroup = DispatchGroup()
 		for (index, stock) in stocks.enumerated() {
+			dispatchGroup.enter()
 			api.getSummary(with: stock.ticker) { [weak self] result in
 				switch result {
 				case .success(let data):
 					self?.stocks[index] = data
-					let indexPath = IndexPath(row: index, section: 0)
-					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
+//					let indexPath = IndexPath(row: index, section: 0)
+//					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
 				case .failure:
-					// [need fix]
-					print("err")
-					
+					deletedStockIndexes.append(index)
+//					self?.stocks.remove(at: index)
+					print("getSummaryInfo err")
 				}
+				dispatchGroup.leave()
 			}
 			// [need fix] anti 429 error
-			break
+//			break
+		}
+		dispatchGroup.notify(queue: .main) {
+			deletedStockIndexes.reverse()
+			for index in deletedStockIndexes {
+				self.stocks.remove(at: index)
+			}
+			self.tableView?.reloadData()
 		}
 	}
 	
@@ -119,13 +124,11 @@ extension StocksListController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "stockCell") as? StockCell
 				else { return UITableViewCell() }
-		let stock = stocks[indexPath.row]
-		cell.tickerLabel?.text = stock.ticker
-		cell.nameLabel?.text = stock.name
-		cell.currentPriceLabel?.text = stock.currentPrice
-		cell.changeValueLabel?.text = stock.changeValue
-		cell.changePercentLabel?.text = stock.changePercent
-		cell.logoImageView?.kf.setImage(with: stock.website)
+		
+//		if indexPath.row == 0 {
+		cell.configure(with: stocks[indexPath.row], isEven: indexPath.row % 2 == 0)
+//		}
+		
 		return cell
 	}
 	

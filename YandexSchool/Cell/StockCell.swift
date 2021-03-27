@@ -8,6 +8,11 @@
 import UIKit
 import Kingfisher
 
+protocol StockCellDelegate {
+	func addToFavorite(_ stock: Stock)
+	func deleteFromFavorite(_ stock: Stock)
+}
+
 // id: stockCell
 class StockCell: UITableViewCell {
 	
@@ -18,6 +23,8 @@ class StockCell: UITableViewCell {
 	@IBOutlet weak var changePriceLabel: UILabel?
 	@IBOutlet weak var bgView: UIView?
 	@IBOutlet weak var starButton: UIButton?
+	
+	var delegate: StockCellDelegate?
 	
 	private var stock: Stock?
 	private var isEven: Bool = false
@@ -30,7 +37,6 @@ class StockCell: UITableViewCell {
 		
 		bgView?.backgroundColor = UIColor(red: 0.94, green: 0.96, blue: 0.97, alpha: 1.00)
 		bgView?.layer.cornerRadius = 16
-		
     }
 	
 	override func prepareForReuse() {
@@ -46,34 +52,39 @@ class StockCell: UITableViewCell {
 		logoImageView?.image = nil
 		starButton?.changeColor(.clear)
 		bgView?.backgroundColor = .clear
-//		starButton?.imageView?.image = nil
 	}
 	
 	func configure(with stock: Stock, isEven: Bool) {
 		self.stock = stock
 		self.isEven = isEven
 		
+		tickerLabel?.text = stock.ticker
+		bgView?.backgroundColor = isEven ? UIColor(red: 0.94, green: 0.96, blue: 0.97, alpha: 1.00) : .white
+		
 		guard let name = stock.name,
 			  let currentPrice = stock.currentPrice,
 			  let symbol = stock.symbol,
 			  let changeValue = stock.changeValue,
 			  let changePercent = stock.changePercent,
-			  let website = stock.website else { return }
+			  let website = stock.website else { print("configure error"); return }
 		
-		bgView?.backgroundColor = isEven ? UIColor(red: 0.94, green: 0.96, blue: 0.97, alpha: 1.00) : .white
-		tickerLabel?.text = stock.ticker
 		nameLabel?.text = name
+		starButton?.changeColor(stock.isFavorite ? UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1) : UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1))
 		currentPriceLabel?.text = "\(symbol)\(currentPrice)"
 		changePriceLabel?.text = "\(changeValue)\(symbol) (\(changePercent))"
 		logoImageView?.kf.setImage(with: website)
 	}
 	
-//	private func getPrice(with price: String, and symbol: String) -> String {
-//		return symbol == "₽" ? "\(price) \(symbol)" : "\(symbol) \(price)"
-//	}
-	
 	@IBAction func clickStar(_ sender: Any) {
-		print("click star")
+		guard let isFavorite = stock?.isFavorite else { return }
+		self.stock?.isFavorite = !isFavorite
+		starButton?.changeColor(isFavorite ? UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1) : UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1))
+		guard let stock = stock else { return }
+		if isFavorite {
+			delegate?.deleteFromFavorite(stock)
+		} else {
+			delegate?.addToFavorite(stock)
+		}
 	}
 	
 }

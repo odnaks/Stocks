@@ -35,6 +35,7 @@
 		F058B38B2607EE50004E76FB /* StocksListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F058B38A2607EE50004E76FB /* StocksListController.swift */; };
 		F058B38F2607F02D004E76FB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F058B38E2607F02D004E76FB /* API.swift */; };
 		F063113F260F8D3E0012748F /* UIButton+changeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F063113E260F8D3E0012748F /* UIButton+changeColor.swift */; };
+		F0631142260FCBAC0012748F /* FileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0631141260FCBAC0012748F /* FileDataManager.swift */; };
 		F06A64182609473C001CD275 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06A64172609473C001CD275 /* StockCell.swift */; };
 		F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		F058B38A2607EE50004E76FB /* StocksListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListController.swift; sourceTree = "<group>"; };
 		F058B38E2607F02D004E76FB /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		F063113E260F8D3E0012748F /* UIButton+changeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+changeColor.swift"; sourceTree = "<group>"; };
+		F0631141260FCBAC0012748F /* FileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataManager.swift; sourceTree = "<group>"; };
 		F06A64172609473C001CD275 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				F058B38E2607F02D004E76FB /* API.swift */,
+				F0631141260FCBAC0012748F /* FileDataManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 			files = (
 				F058B38B2607EE50004E76FB /* StocksListController.swift in Sources */,
 				F058B3652607D4A0004E76FB /* AppDelegate.swift in Sources */,
+				F0631142260FCBAC0012748F /* FileDataManager.swift in Sources */,
 				F06A64182609473C001CD275 /* StockCell.swift in Sources */,
 				F058B38F2607F02D004E76FB /* API.swift in Sources */,
 				F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */,

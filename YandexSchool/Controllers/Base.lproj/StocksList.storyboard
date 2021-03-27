@@ -175,6 +175,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="PeN-fh-HrE"/>
                     <connections>
+                        <outlet property="indicator" destination="f6s-jN-nZu" id="y4V-Hh-RbC"/>
                         <outlet property="menuStack" destination="uFM-Kw-zWE" id="y29-Nk-njY"/>
                         <outlet property="tableView" destination="iXL-ea-UCT" id="ZW3-mc-ZEz"/>
                     </connections>

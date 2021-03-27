@@ -18,15 +18,27 @@ class StocksListController: UIViewController {
 
 	@IBOutlet weak var tableView: UITableView?
 	@IBOutlet weak var menuStack: MenuStack?
+	@IBOutlet weak var indicator: UIActivityIndicatorView?
 	
-	private var stocks = [Stock]()
+	private var stocks = [Stock]()//[Stock("adddd"), Stock("."), Stock("bmp"), Stock("sdfsfdsfsdf"), Stock("yndx"), Stock("")]
+	private var trands = [Stock]() //[Stock("adddd"), Stock("."), Stock("bmp"), Stock("sdfsfdsfsdf"), Stock("yndx"), Stock("")]
+	private var favorites = [Stock]()
+	
+	
+	private var favoritesSt = ["YNDX", "AAPL", "GOOGL", "AMZN" ]//, "BAC", "MSFT", "TSLA", "MA"]
+	
 	private lazy var api = API()
 	private var currentMenuItem = 0
+	
+	
+	private var pullControl = UIRefreshControl()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		tableView?.dataSource = self
+		
+//		indicator?.startAnimating()
 		
 		menuStack?.delegate = self
 		menuStack?.configure(with: ["Stocks", "Favourite"])
@@ -34,7 +46,14 @@ class StocksListController: UIViewController {
 //		titleCollectionView?.delegate = self
 //		titleCollectionView?.allowsMultipleSelection = false
 		
-		getStocks()
+		
+
+//		pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+		pullControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+		tableView?.refreshControl = pullControl
+		
+		
+		getTrands()
 		
 //		let start = CFAbsoluteTimeGetCurrent()
 		
@@ -62,21 +81,63 @@ class StocksListController: UIViewController {
 
 	}
 	
-	private func getStocks() {
+	@objc func refresh() {
+		pullControl.endRefreshing()
+		if currentMenuItem == 0 {
+			getTrands()
+		} else {
+			getFavorites()
+		}
+	}
+	
+	private func getFavorites() {
+		stocks = []
+		indicator?.startAnimating()
+//		api.getTrands { [weak self] result in
+//			switch result {
+//			case .success(let data):
+//				self?.stocks = data
+////				self?.tableView?.reloadData()
+//				self?.getSummaryInfo()
+//			case .failure:
+//				// [need fix]
+//				self?.indicator?.stopAnimating()
+//				print("getStocks err")
+//			}
+//		}
+		
+		for ticker in favoritesSt {
+			stocks.append(Stock(ticker))
+		}
+		getSummaryInfo {
+			self.indicator?.stopAnimating()
+			self.favorites = self.stocks
+		}
+	}
+	
+	private func getTrands() {
+//		stocks = []
+		indicator?.startAnimating()
 		api.getTrands { [weak self] result in
 			switch result {
 			case .success(let data):
 				self?.stocks = data
 //				self?.tableView?.reloadData()
-				self?.getSummaryInfo()
+				self?.getSummaryInfo {
+					self?.indicator?.stopAnimating()
+					guard let stocks = self?.stocks else { return }
+					self?.trands = stocks
+				}
 			case .failure:
 				// [need fix]
+				self?.indicator?.stopAnimating()
 				print("getStocks err")
 			}
 		}
 	}
 	
-	private func getSummaryInfo() {
+	private func getSummaryInfo(_ completion: (() -> Void)?) {
+//		let start = CFAbsoluteTimeGetCurrent()
 		
 		var deletedStockIndexes = [Int]()
 		
@@ -91,20 +152,23 @@ class StocksListController: UIViewController {
 //					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
 				case .failure:
 					deletedStockIndexes.append(index)
-//					self?.stocks.remove(at: index)
 					print("getSummaryInfo err")
 				}
+//				print(CFAbsoluteTimeGetCurrent() - start)
 				dispatchGroup.leave()
 			}
 			// [need fix] anti 429 error
 //			break
 		}
 		dispatchGroup.notify(queue: .main) {
-			deletedStockIndexes.reverse()
+			self.indicator?.stopAnimating()
+			deletedStockIndexes.sort { $0 > $1 }
 			for index in deletedStockIndexes {
 				self.stocks.remove(at: index)
 			}
 			self.tableView?.reloadData()
+			completion?()
+			
 		}
 	}
 	
@@ -112,7 +176,24 @@ class StocksListController: UIViewController {
 
 extension StocksListController: MenuStackDelegate {
 	func changeMenu(index: Int) {
-		print(index)
+		currentMenuItem = index
+		if index == 0 {
+			// trands
+			if !trands.isEmpty {
+				stocks = trands
+				tableView?.reloadData()
+			} else {
+				getTrands()
+			}
+		} else {
+			// favorites
+			if !favorites.isEmpty {
+				stocks = favorites
+				tableView?.reloadData()
+			} else {
+				getFavorites()
+			}
+		}
 	}
 }
 
@@ -125,10 +206,7 @@ extension StocksListController: UITableViewDataSource {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "stockCell") as? StockCell
 				else { return UITableViewCell() }
 		
-//		if indexPath.row == 0 {
 		cell.configure(with: stocks[indexPath.row], isEven: indexPath.row % 2 == 0)
-//		}
-		
 		return cell
 	}
 	

@@ -96,6 +96,7 @@ class MenuStack: UIStackView {
 		print(sender.tag)
 		currentPosition = sender.tag
 		updateButtons()
+		delegate?.changeMenu(index: sender.tag)
 	}
 	
 }

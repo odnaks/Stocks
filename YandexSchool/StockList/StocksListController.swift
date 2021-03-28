@@ -14,17 +14,17 @@ class StocksListController: UIViewController {
 	@IBOutlet weak var indicator: UIActivityIndicatorView?
 	@IBOutlet weak var searchBar: UISearchBar?
 	
+	private var pullControl = UIRefreshControl()
+	
 	private var stocks = [Stock]()
 	private var trands = [Stock]()
 	private var favorites = [Stock]()
-	
 	private var favoritesSt = [String]()
 	
 	private lazy var api = API()
 	private lazy var fileManager = FileDataManager()
-	private var currentMenuItem = 0
-	
-	private var pullControl = UIRefreshControl()
+//	private var currentMenuItem = 0
+	private var currentState: StocksListState = .trands
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -67,7 +67,7 @@ class StocksListController: UIViewController {
 	
 	@objc func refresh() {
 		pullControl.endRefreshing()
-		if currentMenuItem == 0 {
+		if currentState == .trands {
 			getTrands()
 		} else {
 			getFavorites()
@@ -84,13 +84,15 @@ class StocksListController: UIViewController {
 			case .success(let data):
 				self?.trands = data
 				self?.checkFavoritesInTrands()
-				guard let trands = self?.trands else { return }
+				guard self?.currentState == .trands, let trands = self?.trands else { return }
 				self?.stocks = trands
 				self?.tableView?.reloadData()
 				self?.getWebsitesForTrands {
-					guard self?.menuStack?.currentPosition == 0, let trands = self?.trands else { return }
+					guard self?.currentState == .trands, let trands = self?.trands else { return }
+					self?.menuStack?.isBlocked = true
 					self?.stocks = trands
 					self?.tableView?.reloadData()
+					self?.menuStack?.isBlocked = false
 				}
 			case .failure:
 				// [need fix] handle error
@@ -139,9 +141,11 @@ class StocksListController: UIViewController {
 		}
 		self.getFavoriteSummary {
 			self.indicator?.stopAnimating()
-			if self.menuStack?.currentPosition == 1 {
+			if self.currentState == .favorites {
+				self.menuStack?.isBlocked = true
 				self.stocks = self.favorites
 				self.tableView?.reloadData()
+				self.menuStack?.isBlocked = false
 			}
 		}
 	}
@@ -161,7 +165,7 @@ class StocksListController: UIViewController {
 	
 	private func getFavoriteSummary(_ completion: (() -> Void)?) {
 		let dispatchGroup = DispatchGroup()
-		for (index, stock) in stocks.enumerated() {
+		for (index, stock) in favorites.enumerated() {
 			dispatchGroup.enter()
 			api.getSummary(with: stock.ticker) { [weak self] result in
 				switch result {
@@ -198,7 +202,10 @@ extension StocksListController: UISearchBarDelegate {
 
 extension StocksListController: MenuStackDelegate {
 	func changeMenu(index: Int) {
-		currentMenuItem = index
+		stocks = []
+		tableView?.reloadData()
+		guard let state = StocksListState.init(rawValue: index) else { return }
+		currentState = state
 		if index == 0 {
 			// trands
 			if !trands.isEmpty {
@@ -206,7 +213,6 @@ extension StocksListController: MenuStackDelegate {
 				stocks = trands
 				tableView?.reloadData()
 			} else {
-				stocks = []
 				tableView?.reloadData()
 				getTrands()
 			}
@@ -216,7 +222,6 @@ extension StocksListController: MenuStackDelegate {
 				stocks = favorites
 				tableView?.reloadData()
 			} else {
-				stocks = []
 				tableView?.reloadData()
 				getFavorites()
 			}

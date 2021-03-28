@@ -14,7 +14,8 @@ protocol MenuStackDelegate: NSObject {
 class MenuStack: UIStackView {
 	
 	var delegate: MenuStackDelegate?
-	var currentPosition: Int = 0
+	var isBlocked: Bool = false
+	private var currentPosition: Int = 0
 	private var nominalHeight: CGFloat = 0
 	
 	required init(coder: NSCoder) {
@@ -74,6 +75,7 @@ class MenuStack: UIStackView {
 	}
 	
 	@objc func clickMenuTitle(_ sender: UIButton) {
+		guard !isBlocked else { return }
 		currentPosition = sender.tag
 		updateButtons()
 		delegate?.changeMenu(index: sender.tag)

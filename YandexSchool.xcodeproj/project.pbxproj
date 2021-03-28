@@ -38,6 +38,7 @@
 		F0631142260FCBAC0012748F /* FileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0631141260FCBAC0012748F /* FileDataManager.swift */; };
 		F06A64182609473C001CD275 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06A64172609473C001CD275 /* StockCell.swift */; };
 		F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */; };
+		F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDF90B2611270E00D572E4 /* StocksListState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		F0631141260FCBAC0012748F /* FileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataManager.swift; sourceTree = "<group>"; };
 		F06A64172609473C001CD275 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStack.swift; sourceTree = "<group>"; };
+		F0FDF90B2611270E00D572E4 /* StocksListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,14 +172,13 @@
 		F058B3632607D4A0004E76FB /* YandexSchool */ = {
 			isa = PBXGroup;
 			children = (
+				F058B3722607D4A2004E76FB /* Info.plist */,
 				F02EF16F260B40920090957C /* Fonts */,
 				F058B3812607D9AB004E76FB /* System */,
 				F02657B12609387D0011AA21 /* Model */,
+				F0FDF90E2611276E00D572E4 /* Utils */,
 				F02657B2260938870011AA21 /* Network */,
-				F0FF01E6260AA96000EBB71D /* Cell */,
-				F0FF01E5260AA95700EBB71D /* Controllers */,
-				F058B3722607D4A2004E76FB /* Info.plist */,
-				F063113E260F8D3E0012748F /* UIButton+changeColor.swift */,
+				F0FF01E6260AA96000EBB71D /* StockList */,
 			);
 			path = YandexSchool;
 			sourceTree = "<group>";
@@ -193,22 +194,24 @@
 			path = System;
 			sourceTree = "<group>";
 		};
-		F0FF01E5260AA95700EBB71D /* Controllers */ = {
+		F0FDF90E2611276E00D572E4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				F058B36A2607D4A0004E76FB /* StocksList.storyboard */,
-				F058B38A2607EE50004E76FB /* StocksListController.swift */,
-				F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */,
+				F063113E260F8D3E0012748F /* UIButton+changeColor.swift */,
 			);
-			path = Controllers;
+			path = Utils;
 			sourceTree = "<group>";
 		};
-		F0FF01E6260AA96000EBB71D /* Cell */ = {
+		F0FF01E6260AA96000EBB71D /* StockList */ = {
 			isa = PBXGroup;
 			children = (
 				F06A64172609473C001CD275 /* StockCell.swift */,
+				F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */,
+				F0FDF90B2611270E00D572E4 /* StocksListState.swift */,
+				F058B38A2607EE50004E76FB /* StocksListController.swift */,
+				F058B36A2607D4A0004E76FB /* StocksList.storyboard */,
 			);
-			path = Cell;
+			path = StockList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +370,7 @@
 				F06A64182609473C001CD275 /* StockCell.swift in Sources */,
 				F058B38F2607F02D004E76FB /* API.swift in Sources */,
 				F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */,
+				F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */,
 				F02657AF260938780011AA21 /* Stock.swift in Sources */,
 				F058B3672607D4A0004E76FB /* SceneDelegate.swift in Sources */,
 				F063113F260F8D3E0012748F /* UIButton+changeColor.swift in Sources */,

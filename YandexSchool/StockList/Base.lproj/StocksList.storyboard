@@ -43,10 +43,6 @@
                                 <rect key="frame" x="10" y="44" width="394" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" id="f6s-jN-nZu">
-                                <rect key="frame" x="178" y="426" width="57" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="1XZ-Gs-ujb">
                                 <rect key="frame" x="16" y="100" width="398" height="796"/>
                                 <subviews>
@@ -164,6 +160,10 @@
                                     <constraint firstAttribute="trailing" secondItem="iXL-ea-UCT" secondAttribute="trailing" constant="16" id="ygN-tg-qbg"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="aCs-hE-Rr9">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MdD-6g-Kqt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -179,7 +179,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="PeN-fh-HrE"/>
                     <connections>
-                        <outlet property="indicator" destination="f6s-jN-nZu" id="y4V-Hh-RbC"/>
+                        <outlet property="indicator" destination="aCs-hE-Rr9" id="Hal-UY-dUk"/>
                         <outlet property="menuStack" destination="uFM-Kw-zWE" id="y29-Nk-njY"/>
                         <outlet property="searchBar" destination="mmq-cg-VUw" id="H1R-Oh-cKM"/>
                         <outlet property="tableView" destination="iXL-ea-UCT" id="ZW3-mc-ZEz"/>

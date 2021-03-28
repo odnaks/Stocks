@@ -17,11 +17,12 @@ class API {
 	let headers: HTTPHeaders = HTTPHeaders([HTTPHeader(name: "x-rapidapi-key", value: "afc4ebcfcemsha34c67ea4991f81p1ce626jsnfd9af1de4751"),
 											HTTPHeader(name: "x-rapidapi-host", value: "apidojo-yahoo-finance-v1.p.rapidapi.com")])
 	let queue = DispatchQueue(label: "favAdv", qos: .background, attributes: .concurrent)
+	let serialQueue = DispatchQueue(label: "serial.summary", qos: .background)
 	
 	func getSummary(with ticker: String, _ completion: @escaping (Result<Stock, NetworkError>) -> Void) {
 		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")
 			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
-		AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+			AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
 						guard let data = data as? [String: Any],
@@ -55,7 +56,7 @@ class API {
 
 	func getTrands(_ completion: @escaping (Result<[Stock], NetworkError>) -> Void) {
 		AF.request(URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-trending-tickers?region=US")!,
-				   method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+				   method: .get, headers: self.headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
 						var trands = [Stock]()

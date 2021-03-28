@@ -37,7 +37,6 @@ class StocksListController: UIViewController {
 		searchBar?.delegate = self
 		setupSearchBar()
 		
-//		pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
 		pullControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 		tableView?.refreshControl = pullControl
 		
@@ -46,15 +45,12 @@ class StocksListController: UIViewController {
 		
 	}
 	
-//	override func viewDidAppear(_ animated: Bool) {
-//		super.viewDidAppear(animated)
-//
-//
-//	}
+	override func viewDidLayoutSubviews() {
+		setupSearchBar()
+	}
 	
 	private func setupSearchBar() {
 		guard let searchBar = searchBar else { return }
-		
 		searchBar.searchBarStyle = .minimal
 		searchBar.searchTextField.layer.cornerRadius = 18
 		searchBar.searchTextField.layer.masksToBounds = true
@@ -64,36 +60,9 @@ class StocksListController: UIViewController {
 		searchBar.searchTextField.layer.borderColor = UIColor.black.cgColor
 		searchBar.searchTextField.tintColor = .black
 		searchBar.tintColor = .black
-		
 		searchBar.searchTextField.leftView = UIImageView(image: UIImage(named: "searchLeftImage"))
 		searchBar.setImage(UIImage(named: "searchRightImage"), for: .clear, state: .normal)
 		searchBar.searchTextField.font = UIFont(name: "Montserrat-SemiBold", size: 16)
-		
-//		if let searchTextField = searchBar.value(forKey: "_searchField") as? UITextField, let clearButton = searchTextField.value(forKey: "_clearButton") as? UIButton {
-		   // Create a template copy of the original button image
-//			clearButton.setImage(UIImage(named: "searchRightImage"), for: .normal)
-			
-//			let templateImage = clearButton.imageView?.image?.imageWithRenderingMode(.alwaysTemplate)
-//		   // Set the template image copy as the button image
-//		   clearButton.setImage(templateImage, forState: .Normal)
-//		   // Finally, set the image color
-//		   clearButton.tintColor = .redColor()
-//		}
-//		(searchBar.searchTextField.rightView as? UIButton)?.setImage(UIImage(named: "searchRightImage"), for: .normal)
-	}
-//
-//	func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
-//		let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-//		UIGraphicsBeginImageContextWithOptions(size, false, 0)
-//		color.setFill()
-//		UIRectFill(rect)
-//		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-//		UIGraphicsEndImageContext()
-//		return image
-//	}
-	
-	override func viewDidLayoutSubviews() {
-		setupSearchBar()
 	}
 	
 	@objc func refresh() {
@@ -105,54 +74,7 @@ class StocksListController: UIViewController {
 		}
 	}
 	
-	private func getFavoritesTickers() {
-		fileManager.loadFavoriteData { [weak self] res in
-			guard let self = self else { return }
-			switch res {
-			case .success(let data):
-				self.favoritesSt = data
-			case .failure(let error):
-				// [need fix] handle error
-				print(error)
-			}
-		}
-	}
-	
-	private func checkFavoritesInTrands() {
-		for (index, trand) in trands.enumerated() {
-			if favoritesSt.contains(trand.ticker) {
-				trands[index].isFavorite = true
-			} else {
-				trands[index].isFavorite = false
-			}
-		}
-	}
-	
-	private func checkFavoritesInStocks() {
-		for (index, trand) in stocks.enumerated() {
-			if favoritesSt.contains(trand.ticker) {
-				stocks[index].isFavorite = true
-			} else {
-				stocks[index].isFavorite = false
-			}
-		}
-	}
-	
-	private func getFavorites() {
-		favorites = []
-		indicator?.startAnimating()
-		for ticker in favoritesSt {
-			self.favorites.append(Stock(ticker))
-		}
-		self.getFavoriteSummary {
-			self.indicator?.stopAnimating()
-			if self.menuStack?.currentPosition == 1 {
-				self.stocks = self.favorites
-				self.tableView?.reloadData()
-			}
-		}
-	}
-	
+	// MARK: - get trands
 	private func getTrands() {
 		trands = []
 		indicator?.startAnimating()
@@ -198,6 +120,45 @@ class StocksListController: UIViewController {
 		}
 	}
 	
+	private func checkFavoritesInTrands() {
+		for (index, trand) in trands.enumerated() {
+			if favoritesSt.contains(trand.ticker) {
+				trands[index].isFavorite = true
+			} else {
+				trands[index].isFavorite = false
+			}
+		}
+	}
+	
+	// MARK: - get favorites
+	private func getFavorites() {
+		favorites = []
+		indicator?.startAnimating()
+		for ticker in favoritesSt {
+			self.favorites.append(Stock(ticker))
+		}
+		self.getFavoriteSummary {
+			self.indicator?.stopAnimating()
+			if self.menuStack?.currentPosition == 1 {
+				self.stocks = self.favorites
+				self.tableView?.reloadData()
+			}
+		}
+	}
+	
+	private func getFavoritesTickers() {
+		fileManager.loadFavoriteData { [weak self] res in
+			guard let self = self else { return }
+			switch res {
+			case .success(let data):
+				self.favoritesSt = data
+			case .failure(let error):
+				// [need fix] handle error
+				print(error)
+			}
+		}
+	}
+	
 	private func getFavoriteSummary(_ completion: (() -> Void)?) {
 		let dispatchGroup = DispatchGroup()
 		for (index, stock) in stocks.enumerated() {
@@ -221,6 +182,8 @@ class StocksListController: UIViewController {
 	}
 }
 
+// MARK: - UISearchBarDelegate
+
 extension StocksListController: UISearchBarDelegate {
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -230,6 +193,8 @@ extension StocksListController: UISearchBarDelegate {
 		}
 	}
 }
+
+// MARK: - MenuStackDelegate
 
 extension StocksListController: MenuStackDelegate {
 	func changeMenu(index: Int) {
@@ -259,6 +224,8 @@ extension StocksListController: MenuStackDelegate {
 	}
 }
 
+// MARK: - UITableViewDataSource
+
 extension StocksListController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return stocks.count
@@ -275,6 +242,8 @@ extension StocksListController: UITableViewDataSource {
 	}
 	
 }
+
+// MARK: - StockCellDelegate
 
 extension StocksListController: StockCellDelegate {
 	func addToFavorite(_ stock: Stock) {

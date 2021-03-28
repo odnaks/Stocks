@@ -43,7 +43,7 @@
                                 <rect key="frame" x="10" y="44" width="394" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" id="f6s-jN-nZu">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" id="f6s-jN-nZu">
                                 <rect key="frame" x="178" y="426" width="57" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>

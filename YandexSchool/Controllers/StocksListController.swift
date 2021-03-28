@@ -41,8 +41,8 @@ class StocksListController: UIViewController {
 		pullControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 		tableView?.refreshControl = pullControl
 		
-//		getFavoritesTickers()
-//		getTrands()
+		getFavoritesTickers()
+		getTrands()
 		
 	}
 	
@@ -140,88 +140,82 @@ class StocksListController: UIViewController {
 	
 	private func getFavorites() {
 		favorites = []
-		stocks = []
+		indicator?.startAnimating()
 		for ticker in favoritesSt {
-			self.stocks.append(Stock(ticker))
+			self.favorites.append(Stock(ticker))
 		}
-		self.getSummaryInfo(isFavorite: true) {
+		self.getFavoriteSummary {
 			self.indicator?.stopAnimating()
-			self.favorites = self.stocks
+			if self.menuStack?.currentPosition == 1 {
+				self.stocks = self.favorites
+				self.tableView?.reloadData()
+			}
 		}
 	}
 	
 	private func getTrands() {
 		trands = []
-		stocks = []
 		indicator?.startAnimating()
 		api.getTrands { [weak self] result in
+			self?.indicator?.stopAnimating()
 			switch result {
 			case .success(let data):
-				self?.stocks = data
+				self?.trands = data
+				self?.checkFavoritesInTrands()
+				guard let trands = self?.trands else { return }
+				self?.stocks = trands
 				self?.tableView?.reloadData()
-				self?.getSummaryInfo {
-					self?.indicator?.stopAnimating()
-//					self?.checkFavoritesInTrands()
-					guard let stocks = self?.stocks else { return }
-					self?.trands = stocks
+				self?.getWebsitesForTrands {
+					guard self?.menuStack?.currentPosition == 0, let trands = self?.trands else { return }
+					self?.stocks = trands
+					self?.tableView?.reloadData()
 				}
 			case .failure:
 				// [need fix] handle error
 				print("get trands error")
-				self?.indicator?.stopAnimating()
 			}
 		}
 	}
 	
-	private func getSummaryInfo(isFavorite: Bool = false, _ completion: (() -> Void)?) {
-		let start = CFAbsoluteTimeGetCurrent()
-		var deletedStockIndexes = [Int]()
-		
+	private func getWebsitesForTrands(_ completion: (() -> Void)?) {
 		let dispatchGroup = DispatchGroup()
 		for (index, stock) in stocks.enumerated() {
-//			sleep(2)
-			print("index = \(index), ticker = \(stock.ticker)")
+			dispatchGroup.enter()
+			api.getWebsite(with: stock.ticker) { [weak self] result in
+				switch result {
+				case .success(let website):
+					guard self?.trands.count ?? 0 > index else { break }
+					self?.trands[index].website = website
+				case .failure:
+					// [need fix] handle error
+					print("get website error")
+				}
+				dispatchGroup.leave()
+			}
+		}
+		dispatchGroup.notify(queue: .main) {
+			completion?()
+		}
+	}
+	
+	private func getFavoriteSummary(_ completion: (() -> Void)?) {
+		let dispatchGroup = DispatchGroup()
+		for (index, stock) in stocks.enumerated() {
 			dispatchGroup.enter()
 			api.getSummary(with: stock.ticker) { [weak self] result in
 				switch result {
-				case .success(var data):
-					print(CFAbsoluteTimeGetCurrent() - start)
-					guard self?.stocks.count ?? 0 > index else { break }
-					data.isFavorite = isFavorite ? true : false
-					self?.stocks[index] = data
-					dispatchGroup.leave()
-//					guard let numberOfRows = self?.tableView?.numberOfRows(inSection: 0), numberOfRows > index else { return }
-//					let indexPath = IndexPath(row: index, section: 0)
-//					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
+				case .success(let data):
+					guard self?.favorites.count ?? 0 > index else { break }
+					self?.favorites[index] = data
+					self?.favorites[index].isFavorite = true
 				case .failure:
-					print("get summaray error")
-					print(CFAbsoluteTimeGetCurrent() - start)
-					deletedStockIndexes.append(index)
-					dispatchGroup.leave()
-//					guard let numberOfRows = self?.tableView?.numberOfRows(inSection: 0), numberOfRows > index else { return }
-//					let indexPath = IndexPath(row: index, section: 0)
-//					self?.tableView?.deleteRows(at: [indexPath], with: .automatic)
-//					print(stock)
-//					print("get summary error")
+					// [need fix] handle error
+					print("getFavoriteSummary error")
 				}
+				dispatchGroup.leave()
 			}
-			// [need fix] anti 429 error
-//			break
 		}
 		dispatchGroup.notify(queue: .main) {
-			print("notify")
-			self.indicator?.stopAnimating()
-			deletedStockIndexes.sort { $0 > $1 }
-			for index in deletedStockIndexes {
-				guard self.stocks.count > index else { break }
-				self.stocks.remove(at: index)
-				
-				guard let numberOfRows = self.tableView?.numberOfRows(inSection: 0), numberOfRows > index else { return }
-				let indexPath = IndexPath(row: index, section: 0)
-				self.tableView?.deleteRows(at: [indexPath], with: .automatic)
-			}
-			self.checkFavoritesInStocks()
-			self.tableView?.reloadData()
 			completion?()
 		}
 	}
@@ -247,8 +241,9 @@ extension StocksListController: MenuStackDelegate {
 				stocks = trands
 				tableView?.reloadData()
 			} else {
-				getTrands()
+				stocks = []
 				tableView?.reloadData()
+				getTrands()
 			}
 		} else {
 			// favorites
@@ -256,8 +251,9 @@ extension StocksListController: MenuStackDelegate {
 				stocks = favorites
 				tableView?.reloadData()
 			} else {
-				getFavorites()
+				stocks = []
 				tableView?.reloadData()
+				getFavorites()
 			}
 		}
 	}

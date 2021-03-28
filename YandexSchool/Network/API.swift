@@ -20,6 +20,7 @@ class API {
 	let serialQueue = DispatchQueue(label: "serial.summary", qos: .background)
 	
 	func getSummary(with ticker: String, _ completion: @escaping (Result<Stock, NetworkError>) -> Void) {
+//		return
 		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")
 			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 			AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
@@ -28,14 +29,14 @@ class API {
 						guard let data = data as? [String: Any],
 							  let ticker = data["symbol"] as? String,
 							  let prices = data["price"] as? [String: Any],
-							  let symbol = prices["currencySymbol"] as? String,
+//							  let symbol = prices["currencySymbol"] as? String,
 //							  let ticker = prices["fromCurrency"] as? String,
 							  let currentPriceArr = prices["regularMarketPrice"] as? [String: Any],
-							  let currentPrice = currentPriceArr["fmt"] as? String,
+							  let currentPrice = currentPriceArr["raw"] as? Double,
 							  let changeValueArr = prices["regularMarketChange"] as? [String: Any],
-							  let changeValue = changeValueArr["fmt"] as? String,
+							  let changeValue = changeValueArr["raw"] as? Double,
 							  let changePercentArr = prices["regularMarketChangePercent"] as? [String: Any],
-							  let changePercent = changePercentArr["fmt"] as? String,
+							  let changePercent = changePercentArr["raw"] as? Double,
 							  let name = prices["shortName"] as? String,
 							  // url for loading logo
 							  let company = data["assetProfile"] as? [String: Any],
@@ -44,10 +45,31 @@ class API {
 							  let domain = websiteUrl.host,
 							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 						let stock = Stock(ticker: ticker, name: name, currentPrice: currentPrice,
-										  changeValue: changeValue, changePercent: changePercent, symbol: symbol, website: website)
+										  changeValue: changeValue, changePercent: changePercent, website: website)
 						DispatchQueue.main.async { completion(.success(stock)) }
 					case .failure:
 						print("get summary api error")
+						DispatchQueue.main.async { completion(.failure(.apiError)) }
+					}
+		}
+		
+	}
+	
+	func getWebsite(with ticker: String, _ completion: @escaping (Result<URL, NetworkError>) -> Void) {
+		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")
+			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+			AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+					switch response.result {
+					case .success(let data):
+						guard let data = data as? [String: Any],
+							  let company = data["assetProfile"] as? [String: Any],
+							  let websiteStr = company["website"] as? String,
+							  let websiteUrl = URL(string: websiteStr),
+							  let domain = websiteUrl.host,
+							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+						DispatchQueue.main.async { completion(.success(website)) }
+					case .failure:
+						print("get website api error")
 						DispatchQueue.main.async { completion(.failure(.apiError)) }
 					}
 		}
@@ -59,23 +81,31 @@ class API {
 				   method: .get, headers: self.headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
+//						print(data)
 						var trands = [Stock]()
 						guard let data = data as? [String: Any],
 							  let finance = data["finance"] as? [String: Any],
 							  let results = finance["result"] as? [Any],
 							  let result = results[0] as? [String: Any],
 							  let quotes = result["quotes"] as? [Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
-						// handle bags in api
 						for anyQuote in quotes {
 							guard let quote = anyQuote as? [String: Any],
-								  var symbol = quote["symbol"] as? String else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+								  var symbol = quote["symbol"] as? String,
+								  let currentPrice = quote["regularMarketPrice"] as? Double,
+								  let changeValue = quote["regularMarketChange"] as? Double,
+								  let changePercent = quote["regularMarketChangePercent"] as? Double,
+								  let name = quote["shortName"] as? String else { print("errr"); continue }
+							// handle bags in api
 							if let i = symbol.firstIndex(of: "^") {
 								symbol.remove(at: i)
 							}
 							symbol = symbol.components(separatedBy: "-")[0]
 							symbol = symbol.components(separatedBy: "=")[0]
 							symbol = symbol.components(separatedBy: ".")[0]
-							trands.append(Stock(symbol))
+							trands.append(Stock(ticker: symbol, name: name,
+												currentPrice: currentPrice, changeValue: changeValue,
+												changePercent: changePercent))
+							
 						}
 						DispatchQueue.main.async { completion(.success(trands)) }
 					case .failure:

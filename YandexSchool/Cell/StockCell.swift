@@ -63,16 +63,16 @@ class StockCell: UITableViewCell {
 		
 		guard let name = stock.name,
 			  let currentPrice = stock.currentPrice,
-			  let symbol = stock.symbol,
+//			  let symbol = stock.symbol,
 			  let changeValue = stock.changeValue,
-			  let changePercent = stock.changePercent,
-			  let website = stock.website else { print("configure error"); return }
-		
+			  let changePercent = stock.changePercent else { print("configure error"); return }
 		nameLabel?.text = name
 		starButton?.changeColor(stock.isFavorite ? UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1) : UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1))
-		currentPriceLabel?.text = "\(symbol)\(currentPrice)"
-		changePriceLabel?.text = "\(changeValue)\(symbol) (\(changePercent))"
-		logoImageView?.kf.setImage(with: website)
+		currentPriceLabel?.text = "$\(currentPrice)"
+		changePriceLabel?.text = "\(changeValue)$ (\(changePercent))"
+		if let website = stock.website {
+			logoImageView?.kf.setImage(with: website)
+		}
 	}
 	
 	@IBAction func clickStar(_ sender: Any) {

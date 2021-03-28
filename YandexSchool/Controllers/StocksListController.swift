@@ -34,6 +34,7 @@ class StocksListController: UIViewController {
 		menuStack?.delegate = self
 		menuStack?.configure(with: ["Stocks", "Favourite"])
 		
+		searchBar?.delegate = self
 		setupSearchBar()
 		
 //		pullControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -205,7 +206,7 @@ class StocksListController: UIViewController {
 				}
 			}
 			// [need fix] anti 429 error
-			break
+//			break
 		}
 		dispatchGroup.notify(queue: .main) {
 			print("notify")
@@ -222,6 +223,16 @@ class StocksListController: UIViewController {
 			self.checkFavoritesInStocks()
 			self.tableView?.reloadData()
 			completion?()
+		}
+	}
+}
+
+extension StocksListController: UISearchBarDelegate {
+	
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		menuStack?.isHidden = true
+		if searchText == "text" {
+			menuStack?.isHidden = false
 		}
 	}
 }
@@ -284,49 +295,5 @@ extension StocksListController: StockCellDelegate {
 		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
 			// [need fix] handle save error
 		}
-//
-//		guard let index = try? stocks.firstIndex(where: { $0.ticker == stock.ticker }),
-//			  let numberOfRows = tableView?.numberOfRows(inSection: 0), numberOfRows > index else { return }
-//		let indexPath = IndexPath(row: index, section: 0)
-//		tableView?.deleteRows(at: [indexPath], with: .automatic)
 	}
-}
-
-extension UIImage {
-	func imageWithBorder(width: CGFloat, color: UIColor) -> UIImage? {
-		let square = CGSize(width: min(size.width, size.height) + width * 2, height: min(size.width, size.height) + width * 2)
-		let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: square))
-		imageView.contentMode = .center
-		imageView.image = self
-		imageView.layer.borderWidth = width
-		imageView.layer.borderColor = color.cgColor
-		UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
-		guard let context = UIGraphicsGetCurrentContext() else { return nil }
-		imageView.layer.render(in: context)
-		let result = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		return result
-	}
-	
-	func outline() -> UIImage? {
-
-
-
-			UIGraphicsBeginImageContext(size)
-			let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-			self.draw(in: rect, blendMode: .normal, alpha: 1.0)
-			let context = UIGraphicsGetCurrentContext()
-			context?.setStrokeColor(red: 1.0, green: 0.5, blue: 1.0, alpha: 1.0)
-			context?.setLineWidth(5.0)
-			context?.stroke(rect)
-			let newImage = UIGraphicsGetImageFromCurrentImageContext()
-			UIGraphicsEndImageContext()
-
-
-
-			return newImage
-
-
-
-		}
 }

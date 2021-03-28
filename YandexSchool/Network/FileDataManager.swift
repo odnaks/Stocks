@@ -52,7 +52,6 @@ class FileDataManager {
 
 }
 
-
 extension JSONSerialization {
 	
 	static func loadJSON(withFilename filename: String) throws -> Any? {
@@ -68,7 +67,7 @@ extension JSONSerialization {
 		return nil
 	}
 	
-	static func save(jsonObject: Any, toFilename filename: String) throws -> Bool{
+	static func save(jsonObject: Any, toFilename filename: String) throws -> Bool {
 		let fm = FileManager.default
 		let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
 		if let url = urls.first {

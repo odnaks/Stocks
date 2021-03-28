@@ -15,6 +15,7 @@ class MenuStack: UIStackView {
 	
 	var delegate: MenuStackDelegate?
 	var currentPosition: Int = 0
+	private var nominalHeight: CGFloat = 0
 	
 	required init(coder: NSCoder) {
 		super.init(coder: coder)
@@ -33,7 +34,7 @@ class MenuStack: UIStackView {
 			let button = createButton(title: title, index: index)
 			addArrangedSubview(button)
 		}
-
+		nominalHeight = bounds.size.height
 		updateButtons()
 	}
 	

@@ -14,14 +14,16 @@ enum FileError: Error {
 
 class FileDataManager {
 	
-	private let favoritesQueue: DispatchQueue
+	private let loadQueue: DispatchQueue
+	private let saveQueue: DispatchQueue
 	
 	init() {
-		favoritesQueue = DispatchQueue(label: "favorites.serial", qos: .userInitiated)
+		loadQueue = DispatchQueue(label: "loadFavorites.serial", qos: .userInitiated)
+		saveQueue = DispatchQueue(label: "saveFavorites.serial", qos: .background)
 	}
 	
 	func loadFavoriteData(completion: @escaping (Result<[String], FileError>) -> Void) {
-		favoritesQueue.async {
+		loadQueue.async {
 			if let data = try? JSONSerialization.loadJSON(withFilename: "favorites") {
 				if let data = data as? [String] {
 					completion(.success(data))
@@ -35,8 +37,7 @@ class FileDataManager {
 	}
 
 	func saveFavoriteData(favorites: [String], completion: @escaping (Result<Void, FileError>) -> Void) {
-		favoritesQueue.async {
-			
+		saveQueue.async {
 			if let success = try? JSONSerialization.save(jsonObject: favorites, toFilename: "favorites") {
 				if success {
 					completion(.success(()))

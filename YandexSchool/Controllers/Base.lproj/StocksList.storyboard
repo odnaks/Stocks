@@ -109,7 +109,7 @@
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="RqZ-WJ-wN1" firstAttribute="centerY" secondItem="Ky9-d9-OLl" secondAttribute="centerY" id="2u3-he-oJT"/>
-                                                        <constraint firstItem="neL-Jo-u2X" firstAttribute="leading" secondItem="EXP-JE-Zxr" secondAttribute="leading" constant="8" id="5dp-a7-ybr"/>
+                                                        <constraint firstItem="neL-Jo-u2X" firstAttribute="leading" secondItem="EXP-JE-Zxr" secondAttribute="leading" priority="999" constant="8" id="5dp-a7-ybr"/>
                                                         <constraint firstItem="gIa-dd-nZc" firstAttribute="leading" secondItem="Ky9-d9-OLl" secondAttribute="leading" id="Aws-dR-G2L"/>
                                                         <constraint firstItem="Ky9-d9-OLl" firstAttribute="top" secondItem="EXP-JE-Zxr" secondAttribute="top" constant="14" id="BHN-Zy-3RV"/>
                                                         <constraint firstItem="G6U-bB-02z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RqZ-WJ-wN1" secondAttribute="trailing" constant="20" id="MkJ-am-Ce6"/>
@@ -121,7 +121,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="snn-Yc-D1C" secondAttribute="trailing" constant="12" id="k4B-oR-UoC"/>
                                                         <constraint firstItem="G6U-bB-02z" firstAttribute="top" secondItem="EXP-JE-Zxr" secondAttribute="top" constant="14" id="kH0-fn-DPI"/>
                                                         <constraint firstItem="snn-Yc-D1C" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gIa-dd-nZc" secondAttribute="trailing" constant="10" id="oyg-7c-I0A"/>
-                                                        <constraint firstItem="neL-Jo-u2X" firstAttribute="top" relation="greaterThanOrEqual" secondItem="EXP-JE-Zxr" secondAttribute="top" constant="8" id="pPl-xj-PZC"/>
+                                                        <constraint firstItem="neL-Jo-u2X" firstAttribute="top" secondItem="EXP-JE-Zxr" secondAttribute="top" priority="999" constant="8" id="pPl-xj-PZC"/>
                                                         <constraint firstItem="snn-Yc-D1C" firstAttribute="top" secondItem="G6U-bB-02z" secondAttribute="bottom" id="uCe-Wb-War"/>
                                                     </constraints>
                                                 </view>

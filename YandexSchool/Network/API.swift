@@ -24,7 +24,6 @@ class API {
 		AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
-//						print(data)
 						guard let data = data as? [String: Any],
 							  let ticker = data["symbol"] as? String,
 							  let prices = data["price"] as? [String: Any],
@@ -47,6 +46,7 @@ class API {
 										  changeValue: changeValue, changePercent: changePercent, symbol: symbol, website: website)
 						DispatchQueue.main.async { completion(.success(stock)) }
 					case .failure:
+						print("get summary api error")
 						DispatchQueue.main.async { completion(.failure(.apiError)) }
 					}
 		}
@@ -64,13 +64,16 @@ class API {
 							  let results = finance["result"] as? [Any],
 							  let result = results[0] as? [String: Any],
 							  let quotes = result["quotes"] as? [Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
-						
+						// handle bags in api
 						for anyQuote in quotes {
 							guard let quote = anyQuote as? [String: Any],
 								  var symbol = quote["symbol"] as? String else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 							if let i = symbol.firstIndex(of: "^") {
 								symbol.remove(at: i)
 							}
+							symbol = symbol.components(separatedBy: "-")[0]
+							symbol = symbol.components(separatedBy: "=")[0]
+							symbol = symbol.components(separatedBy: ".")[0]
 							trands.append(Stock(symbol))
 						}
 						DispatchQueue.main.async { completion(.success(trands)) }

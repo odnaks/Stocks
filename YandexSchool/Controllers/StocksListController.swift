@@ -97,11 +97,13 @@ class StocksListController: UIViewController {
 				self?.tableView?.reloadData()
 				self?.getSummaryInfo {
 					self?.indicator?.stopAnimating()
+					self?.checkFavoritesInTrands()
 					guard let stocks = self?.stocks else { return }
 					self?.trands = stocks
 				}
 			case .failure:
 				// [need fix] handle error
+				print("get trands error")
 				self?.indicator?.stopAnimating()
 			}
 		}
@@ -124,6 +126,7 @@ class StocksListController: UIViewController {
 //					let indexPath = IndexPath(row: index, section: 0)
 //					self?.tableView?.reloadRows(at: [indexPath], with: .automatic)
 				case .failure:
+					print("get summaray error")
 					deletedStockIndexes.append(index)
 //					guard let numberOfRows = self?.tableView?.numberOfRows(inSection: 0), numberOfRows > index else { return }
 //					let indexPath = IndexPath(row: index, section: 0)
@@ -200,10 +203,21 @@ extension StocksListController: StockCellDelegate {
 	func addToFavorite(_ stock: Stock) {
 		favorites.append(stock)
 		favoritesSt.append(stock.ticker)
+		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
+			// [need fix] handle save error
+		}
 	}
 	
 	func deleteFromFavorite(_ stock: Stock) {
 		favorites.removeAll { $0.ticker == stock.ticker }
 		favoritesSt.removeAll { $0 == stock.ticker }
+		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
+			// [need fix] handle save error
+		}
+//
+//		guard let index = try? stocks.firstIndex(where: { $0.ticker == stock.ticker }),
+//			  let numberOfRows = tableView?.numberOfRows(inSection: 0), numberOfRows > index else { return }
+//		let indexPath = IndexPath(row: index, section: 0)
+//		tableView?.deleteRows(at: [indexPath], with: .automatic)
 	}
 }

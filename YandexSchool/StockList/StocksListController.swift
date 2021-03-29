@@ -26,13 +26,17 @@ class StocksListController: UIViewController {
 //	private var currentMenuItem = 0
 	private var currentState: StocksListState = .trands
 	
+	// search bar
+	private var backSearchButton: UIButton?
+	private var searchSearchButton: UIImageView?
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		tableView?.dataSource = self
 		
 		menuStack?.delegate = self
-		menuStack?.configure(with: ["Stocks", "Favourite"])
+		menuStack?.configure(with: ["Trands", "Favourite"])
 		
 		searchBar?.delegate = self
 		setupSearchBar()
@@ -41,7 +45,7 @@ class StocksListController: UIViewController {
 		tableView?.refreshControl = pullControl
 		
 		getFavoritesTickers()
-		getTrands()
+//		getTrands()
 		
 	}
 	
@@ -60,9 +64,18 @@ class StocksListController: UIViewController {
 		searchBar.searchTextField.layer.borderColor = UIColor.black.cgColor
 		searchBar.searchTextField.tintColor = .black
 		searchBar.tintColor = .black
-		searchBar.searchTextField.leftView = UIImageView(image: UIImage(named: "searchLeftImage"))
-		searchBar.setImage(UIImage(named: "searchRightImage"), for: .clear, state: .normal)
+//		searchBar.searchTextField.leftView = UIImageView(image: UIImage(named: "searchSearch"))
+//		let gestureRecognizer = UITapGestureRecognizer(target: searchBar, action: #selector(clickLeftButton))
+//		searchBar.searchTextField.leftView?.addGestureRecognizer(gestureRecognizer)
+		searchBar.setImage(UIImage(named: "closeSearch"), for: .clear, state: .normal)
 		searchBar.searchTextField.font = UIFont(name: "Montserrat-SemiBold", size: 16)
+		
+		backSearchButton = UIButton()
+		backSearchButton?.setImage(UIImage(named: "backSearch"), for: .normal)
+		backSearchButton?.addTarget(self, action: #selector(clickLeftButton), for: .touchUpInside)
+		
+		searchSearchButton = UIImageView(image: UIImage(named: "searchSearch"))
+		searchBar.searchTextField.leftView = searchSearchButton
 	}
 	
 	@objc func refresh() {
@@ -191,10 +204,27 @@ class StocksListController: UIViewController {
 extension StocksListController: UISearchBarDelegate {
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-		menuStack?.isHidden = true
-		if searchText == "text" {
-			menuStack?.isHidden = false
-		}
+		self.searchBar?.searchTextField.leftView = backSearchButton
+		self.menuStack?.frame.size.height = 0
+		self.menuStack?.layoutSubviews()
+	}
+	
+	func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+		print("fffff")
+	
+//		self.menuStack?.alpha = 0
+		self.searchBar?.searchTextField.leftView = backSearchButton
+
+		return true
+	}
+	
+	@objc func clickLeftButton() {
+		print("left clicka")
+		searchBar?.text = ""
+		menuStack?.isHidden = false
+		searchBar?.endEditing(false)
+		
+		self.searchBar?.searchTextField.leftView = searchSearchButton
 	}
 }
 
@@ -202,11 +232,11 @@ extension StocksListController: UISearchBarDelegate {
 
 extension StocksListController: MenuStackDelegate {
 	func changeMenu(index: Int) {
+		indicator?.stopAnimating()
 		stocks = []
 		tableView?.reloadData()
-		guard let state = StocksListState.init(rawValue: index) else { return }
-		currentState = state
 		if index == 0 {
+			currentState = .trands
 			// trands
 			if !trands.isEmpty {
 				checkFavoritesInTrands()
@@ -217,6 +247,7 @@ extension StocksListController: MenuStackDelegate {
 				getTrands()
 			}
 		} else {
+			currentState = .favorites
 			// favorites
 			if !favorites.isEmpty {
 				stocks = favorites

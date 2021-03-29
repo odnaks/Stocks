@@ -78,13 +78,17 @@ class API {
 							  let changePercent = changePercentArr["raw"] as? Double,
 							  let name = prices["shortName"] as? String,
 							  // url for loading logo
-							  let company = data["assetProfile"] as? [String: Any],
-							  let websiteStr = company["website"] as? String,
+							  let company = data["assetProfile"] as? [String: Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+						
+						var website: URL?
+						if let websiteStr = company["website"] as? String,
 							  let websiteUrl = URL(string: websiteStr),
 							  let domain = websiteUrl.host,
-							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+							  let commonUrl = URL(string: "https://logo.clearbit.com/" + domain) {
+							website = commonUrl
+						}
 						let stock = Stock(ticker: ticker, name: name, currentPrice: currentPrice,
-										  changeValue: changeValue, changePercent: changePercent, website: website)
+									  changeValue: changeValue, changePercent: changePercent, website: website)
 						DispatchQueue.main.async { completion(.success(stock)) }
 					case .failure:
 						print("get summary api error")

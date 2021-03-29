@@ -38,6 +38,7 @@
 		F0631142260FCBAC0012748F /* FileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0631141260FCBAC0012748F /* FileDataManager.swift */; };
 		F06A64182609473C001CD275 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06A64172609473C001CD275 /* StockCell.swift */; };
 		F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */; };
+		F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */; };
 		F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDF90B2611270E00D572E4 /* StocksListState.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		F0631141260FCBAC0012748F /* FileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDataManager.swift; sourceTree = "<group>"; };
 		F06A64172609473C001CD275 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStack.swift; sourceTree = "<group>"; };
+		F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StocksListController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		F0FDF90B2611270E00D572E4 /* StocksListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +211,7 @@
 				F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */,
 				F0FDF90B2611270E00D572E4 /* StocksListState.swift */,
 				F058B38A2607EE50004E76FB /* StocksListController.swift */,
+				F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */,
 				F058B36A2607D4A0004E76FB /* StocksList.storyboard */,
 			);
 			path = StockList;
@@ -370,6 +373,7 @@
 				F06A64182609473C001CD275 /* StockCell.swift in Sources */,
 				F058B38F2607F02D004E76FB /* API.swift in Sources */,
 				F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */,
+				F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */,
 				F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */,
 				F02657AF260938780011AA21 /* Stock.swift in Sources */,
 				F058B3672607D4A0004E76FB /* SceneDelegate.swift in Sources */,

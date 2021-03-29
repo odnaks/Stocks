@@ -24,7 +24,7 @@ struct Stock {
 	}
 	
 	// summary
-	init(ticker: String, name: String, currentPrice: Double, changeValue: Double, changePercent: Double, website: URL) {
+	init(ticker: String, name: String, currentPrice: Double, changeValue: Double, changePercent: Double, website: URL?) {
 		self.ticker = ticker
 		self.name = name
 		self.currentPrice = currentPrice

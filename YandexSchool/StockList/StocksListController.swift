@@ -17,23 +17,22 @@ class StocksListController: UIViewController {
 	
 	private var pullControl = UIRefreshControl()
 	
-	private var stocks = [Stock]()
+	var stocks = [Stock]()
 	private var trands = [Stock]()
 	private var favorites = [Stock]()
 	private var favoritesSt = [String]()
-	
-	private lazy var api = API()
+
 	private lazy var fileManager = FileDataManager()
-//	private var currentMenuItem = 0
-	private var currentState: StocksListState = .trands
+	lazy var api = API()
+	var currentState: StocksListState = .trands
 	
 	// search bar
-	private var backSearchButton: UIButton?
-	private var searchSearchButton: UIImageView?
+	var backSearchButton: UIButton?
+	var searchSearchButton: UIImageView?
+	var searchWorkItem: DispatchWorkItem?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		tableView?.dataSource = self
 		
 		menuStack?.delegate = self
@@ -46,8 +45,7 @@ class StocksListController: UIViewController {
 		tableView?.refreshControl = pullControl
 		
 		getFavoritesTickers()
-//		getTrands()
-		
+		getTrands()
 	}
 	
 	func hideTitles() {
@@ -75,9 +73,6 @@ class StocksListController: UIViewController {
 		searchBar.searchTextField.layer.borderColor = UIColor.black.cgColor
 		searchBar.searchTextField.tintColor = .black
 		searchBar.tintColor = .black
-//		searchBar.searchTextField.leftView = UIImageView(image: UIImage(named: "searchSearch"))
-//		let gestureRecognizer = UITapGestureRecognizer(target: searchBar, action: #selector(clickLeftButton))
-//		searchBar.searchTextField.leftView?.addGestureRecognizer(gestureRecognizer)
 		searchBar.setImage(UIImage(named: "closeSearch"), for: .clear, state: .normal)
 		searchBar.searchTextField.font = UIFont(name: "Montserrat-SemiBold", size: 16)
 		
@@ -208,87 +203,44 @@ class StocksListController: UIViewController {
 			completion?()
 		}
 	}
-}
-
-// MARK: - UISearchBarDelegate
-
-extension StocksListController: UISearchBarDelegate {
 	
-	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//		self.searchBar?.searchTextField.leftView = backSearchButton
-//		self.menuStack?.frame.size.height = 0
-//		self.menuStack?.layoutSubviews()
-		hideTitles()
-		self.searchBar?.searchTextField.leftView = backSearchButton
-		
-		
-		api.autoComplete(with: searchText) { result in
-			switch result {
-			case .success(let data):
-				print(data)
-			case .failure:
-				print("auto compl err")
-			}
-		}
-		
-	}
-	
-	func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-		print("fffff")
-	
-//		self.menuStack?.alpha = 0
-		
-		self.searchBar?.searchTextField.leftView = backSearchButton
-
-		return true
-	}
-	
-	@objc func clickLeftButton() {
-		print("left clicka")
-		searchBar?.text = ""
-		
-		searchBar?.endEditing(false)
-		
-		showTitles()
-		
-		self.searchBar?.searchTextField.leftView = searchSearchButton
-	}
-}
-
-// MARK: - MenuStackDelegate
-
-extension StocksListController: MenuStackDelegate {
-	func changeMenu(index: Int) {
+	// MARK: - utils
+	func updateState() {
 		indicator?.stopAnimating()
 		stocks = []
 		tableView?.reloadData()
-		if index == 0 {
-			currentState = .trands
-			// trands
+	
+		switch currentState {
+		case .trands:
 			if !trands.isEmpty {
 				checkFavoritesInTrands()
 				stocks = trands
 				tableView?.reloadData()
 			} else {
-				tableView?.reloadData()
 				getTrands()
 			}
-		} else {
-			currentState = .favorites
-			// favorites
+		case .favorites:
 			if !favorites.isEmpty {
 				stocks = favorites
 				tableView?.reloadData()
 			} else {
-				tableView?.reloadData()
 				getFavorites()
 			}
+		case .search:
+			break
 		}
 	}
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - MenuStackDelegate
+extension StocksListController: MenuStackDelegate {
+	func changeMenu(index: Int) {
+		currentState = index == 0 ? .trands : .favorites
+		updateState()
+	}
+}
 
+// MARK: - UITableViewDataSource
 extension StocksListController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return stocks.count
@@ -303,17 +255,16 @@ extension StocksListController: UITableViewDataSource {
 		cell.delegate = self
 		return cell
 	}
-	
 }
 
 // MARK: - StockCellDelegate
-
 extension StocksListController: StockCellDelegate {
 	func addToFavorite(_ stock: Stock) {
 		favorites.append(stock)
 		favoritesSt.append(stock.ticker)
 		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
 			// [need fix] handle save error
+			print(result)
 		}
 	}
 	
@@ -322,6 +273,7 @@ extension StocksListController: StockCellDelegate {
 		favoritesSt.removeAll { $0 == stock.ticker }
 		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
 			// [need fix] handle save error
+			print(result)
 		}
 	}
 }

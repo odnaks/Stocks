@@ -61,12 +61,11 @@ class StockCell: UITableViewCell {
 		tickerLabel?.text = stock.ticker
 		bgView?.backgroundColor = isEven ? UIColor(red: 0.94, green: 0.96, blue: 0.97, alpha: 1.00) : .white
 		
-		guard let name = stock.name,
-			  let currentPrice = stock.currentPrice,
-//			  let symbol = stock.symbol,
-			  let changeValue = stock.changeValue,
-			  let changePercent = stock.changePercent else { print("configure error"); return }
+		guard let name = stock.name else { print("configure name error"); return }
 		nameLabel?.text = name
+		guard let currentPrice = stock.currentPrice,
+			  let changeValue = stock.changeValue,
+			  let changePercent = stock.changePercent else { print("configure price error"); return }
 		starButton?.changeColor(stock.isFavorite ? UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1) : UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1))
 		currentPriceLabel?.text = "$\(currentPrice)"
 		changePriceLabel?.text = "\(changeValue)$ (\(changePercent))"

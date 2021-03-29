@@ -23,24 +23,31 @@ struct Stock {
 		self.isFavorite = false
 	}
 	
+	// summary
 	init(ticker: String, name: String, currentPrice: Double, changeValue: Double, changePercent: Double, website: URL) {
 		self.ticker = ticker
 		self.name = name
 		self.currentPrice = currentPrice
 		self.changeValue = changeValue
 		self.changePercent = changePercent
-//		self.symbol = symbol
 		self.website = website
 		self.isFavorite = false
 	}
 	
+	// trands
 	init(ticker: String, name: String, currentPrice: Double, changeValue: Double, changePercent: Double) {
 		self.ticker = ticker
 		self.name = name
 		self.currentPrice = currentPrice
 		self.changeValue = changeValue
 		self.changePercent = changePercent
-//		self.symbol = symbol
+		self.isFavorite = false
+	}
+	
+	// search
+	init(ticker: String, name: String) {
+		self.ticker = ticker
+		self.name = name
 		self.isFavorite = false
 	}
 }

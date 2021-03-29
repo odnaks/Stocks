@@ -13,6 +13,7 @@ class StocksListController: UIViewController {
 	@IBOutlet weak var menuStack: MenuStack?
 	@IBOutlet weak var indicator: UIActivityIndicatorView?
 	@IBOutlet weak var searchBar: UISearchBar?
+	@IBOutlet weak var constraintTableToSearchBarTop: NSLayoutConstraint?
 	
 	private var pullControl = UIRefreshControl()
 	
@@ -47,6 +48,16 @@ class StocksListController: UIViewController {
 		getFavoritesTickers()
 //		getTrands()
 		
+	}
+	
+	func hideTitles() {
+		constraintTableToSearchBarTop?.constant = 0
+		menuStack?.isHidden = true
+	}
+	
+	func showTitles() {
+		constraintTableToSearchBarTop?.constant = 60
+		menuStack?.isHidden = false
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -204,15 +215,29 @@ class StocksListController: UIViewController {
 extension StocksListController: UISearchBarDelegate {
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//		self.searchBar?.searchTextField.leftView = backSearchButton
+//		self.menuStack?.frame.size.height = 0
+//		self.menuStack?.layoutSubviews()
+		hideTitles()
 		self.searchBar?.searchTextField.leftView = backSearchButton
-		self.menuStack?.frame.size.height = 0
-		self.menuStack?.layoutSubviews()
+		
+		
+		api.autoComplete(with: searchText) { result in
+			switch result {
+			case .success(let data):
+				print(data)
+			case .failure:
+				print("auto compl err")
+			}
+		}
+		
 	}
 	
 	func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
 		print("fffff")
 	
 //		self.menuStack?.alpha = 0
+		
 		self.searchBar?.searchTextField.leftView = backSearchButton
 
 		return true
@@ -221,8 +246,10 @@ extension StocksListController: UISearchBarDelegate {
 	@objc func clickLeftButton() {
 		print("left clicka")
 		searchBar?.text = ""
-		menuStack?.isHidden = false
+		
 		searchBar?.endEditing(false)
+		
+		showTitles()
 		
 		self.searchBar?.searchTextField.leftView = searchSearchButton
 	}

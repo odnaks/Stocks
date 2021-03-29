@@ -94,8 +94,40 @@ class API {
 		
 	}
 	
-	/*	финансовые апи возвращают картинки в плохом качестве, поэтому получаю website из полной
-		информации и по нему через logo.clearbit.com получаю лого компании	*/
+	func autoComplete(with text: String, _ completion: @escaping (Result<[Stock], NetworkError>) -> Void) {
+		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/auto-complete?q=\(text)&region=US")
+			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+		AF.request(url, method: .get, headers: self.headers).validate().responseJSON(queue: queue) { response in
+					switch response.result {
+					case .success(let data):
+//						print(data)
+						var trands = [Stock]()
+						guard let data = data as? [String: Any],
+							  let quotes = data["quotes"] as? [Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+						for anyQuote in quotes {
+							guard let quote = anyQuote as? [String: Any],
+								  var symbol = quote["symbol"] as? String,
+								  let name = quote["shortname"] as? String,
+								  let isExist = quote["isYahooFinance"] as? Bool, isExist else { print("errr"); continue }
+							// handle bags in api
+							if let i = symbol.firstIndex(of: "^") {
+								symbol.remove(at: i)
+							}
+							symbol = symbol.components(separatedBy: "-")[0]
+							symbol = symbol.components(separatedBy: "=")[0]
+							symbol = symbol.components(separatedBy: ".")[0]
+							trands.append(Stock(ticker: symbol, name: name))
+						}
+						DispatchQueue.main.async { completion(.success(trands)) }
+					case .failure:
+						DispatchQueue.main.async { completion(.failure(.apiError)) }
+					}
+		}
+		
+	}
+	
+	/*	финансовые апи возвращают некрасивые картинки в плохом качестве, поэтому получаю website
+		из саммари и по нему через logo.clearbit.com получаю лого компании	*/
 	func getWebsite(with ticker: String, _ completion: @escaping (Result<URL, NetworkError>) -> Void) {
 		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")
 			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }

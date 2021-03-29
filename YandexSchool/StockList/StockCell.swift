@@ -88,6 +88,9 @@ class StockCell: UITableViewCell {
 		} else {
 			logoImageView?.image = image(with: stock.ticker)
 		}
+		if let exchange = stock.exchange {
+			nameLabel?.text = "(\(exchange)) \(name)"
+		}
 	}
 	
 	@IBAction func clickStar(_ sender: Any) {

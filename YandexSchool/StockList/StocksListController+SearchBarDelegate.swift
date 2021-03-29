@@ -33,7 +33,9 @@ extension StocksListController: UISearchBarDelegate {
 								case .success(let summaryStock):
 									guard let count = self?.stocks.count, count > index,
 										  self?.stocks[index].ticker == summaryStock.ticker else { break }
+									let exchange = self?.stocks[index].exchange
 									self?.stocks[index] = summaryStock
+									self?.stocks[index].exchange = exchange
 								case .failure:
 									break
 								}

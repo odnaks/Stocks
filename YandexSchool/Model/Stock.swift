@@ -13,10 +13,9 @@ struct Stock {
 	var currentPrice: Double?
 	var changeValue: Double?
 	var changePercent: Double?
-//	var symbol: String?
 	var website: URL?
 	var isFavorite: Bool
-//	var image: UIImage?
+	var exchange: String?
 	
 	init(_ ticker: String) {
 		self.ticker = ticker
@@ -45,9 +44,10 @@ struct Stock {
 	}
 	
 	// search
-	init(ticker: String, name: String) {
+	init(ticker: String, name: String, exchange: String?) {
 		self.ticker = ticker
 		self.name = name
 		self.isFavorite = false
+		self.exchange = exchange
 	}
 }

@@ -110,6 +110,7 @@ class API {
 							guard let quote = anyQuote as? [String: Any],
 								  var symbol = quote["symbol"] as? String,
 								  let name = quote["shortname"] as? String,
+								  let exchange = quote["exchange"] as? String?,
 								  let isExist = quote["isYahooFinance"] as? Bool, isExist else { continue }
 							// handle bags in api
 							if let i = symbol.firstIndex(of: "^") {
@@ -118,7 +119,7 @@ class API {
 							symbol = symbol.components(separatedBy: "-")[0]
 							symbol = symbol.components(separatedBy: "=")[0]
 							symbol = symbol.components(separatedBy: ".")[0]
-							trands.append(Stock(ticker: symbol, name: name))
+							trands.append(Stock(ticker: symbol, name: name, exchange: exchange))
 						}
 						DispatchQueue.main.async { completion(.success(trands)) }
 					case .failure:

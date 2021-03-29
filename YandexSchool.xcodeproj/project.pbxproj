@@ -39,6 +39,7 @@
 		F06A64182609473C001CD275 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06A64172609473C001CD275 /* StockCell.swift */; };
 		F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */; };
 		F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */; };
+		F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA252612471900BFC3AD /* Double+rounded.swift */; };
 		F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDF90B2611270E00D572E4 /* StocksListState.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		F06A64172609473C001CD275 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStack.swift; sourceTree = "<group>"; };
 		F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StocksListController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
+		F0AEAA252612471900BFC3AD /* Double+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+rounded.swift"; sourceTree = "<group>"; };
 		F0FDF90B2611270E00D572E4 /* StocksListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				F063113E260F8D3E0012748F /* UIButton+changeColor.swift */,
+				F0AEAA252612471900BFC3AD /* Double+rounded.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */,
 				F02657AF260938780011AA21 /* Stock.swift in Sources */,
 				F058B3672607D4A0004E76FB /* SceneDelegate.swift in Sources */,
+				F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */,
 				F063113F260F8D3E0012748F /* UIButton+changeColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +532,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WFX45C65T9;
 				INFOPLIST_FILE = YandexSchool/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -548,6 +553,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WFX45C65T9;
 				INFOPLIST_FILE = YandexSchool/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

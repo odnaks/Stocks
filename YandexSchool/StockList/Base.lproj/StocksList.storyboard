@@ -41,11 +41,13 @@
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="mmq-cg-VUw">
                                 <rect key="frame" x="10" y="44" width="394" height="56"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iXL-ea-UCT">
                                 <rect key="frame" x="16" y="162" width="382" height="734"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -131,6 +133,7 @@
                                                 <constraint firstItem="EXP-JE-Zxr" firstAttribute="top" secondItem="zPw-xT-pBV" secondAttribute="top" id="MTv-wr-pta"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="bgView" destination="EXP-JE-Zxr" id="Xbr-kQ-1oY"/>
                                             <outlet property="changePriceLabel" destination="snn-Yc-D1C" id="Azt-Iq-lca"/>
@@ -159,7 +162,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="MdD-6g-Kqt"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="mmq-cg-VUw" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" constant="10" id="1eB-bz-6Ys"/>
                             <constraint firstItem="iXL-ea-UCT" firstAttribute="top" secondItem="mmq-cg-VUw" secondAttribute="bottom" constant="62" id="4lI-Dr-VHu"/>

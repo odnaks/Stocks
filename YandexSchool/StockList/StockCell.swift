@@ -67,11 +67,8 @@ class StockCell: UITableViewCell {
 			  let changeValue = stock.changeValue,
 			  let changePercent = stock.changePercent else { return }
 		starButton?.changeColor(stock.isFavorite ? UIColor(red: 1, green: 0.791, blue: 0.108, alpha: 1) : UIColor(red: 0.729, green: 0.729, blue: 0.729, alpha: 1))
-//		if let intPrice = currentPrice.toInt() {
-//			currentPriceLabel?.text = "$\(intPrice)"
-//		} else {
-			currentPriceLabel?.text = "$\(currentPrice.rounded(toPlaces: 2))"
-//		}
+
+		currentPriceLabel?.text = "$\(currentPrice.rounded(toPlaces: 2))"
 		if changeValue < 0 {
 			changePriceLabel?.text = "-$\(abs(changeValue.rounded(toPlaces: 2))) (\(abs(changePercent.rounded(toPlaces: 2)))%)"
 			changePriceLabel?.textColor = UIColor(red: 0.70, green: 0.14, blue: 0.14, alpha: 1.00)
@@ -123,13 +120,4 @@ class StockCell: UITableViewCell {
 		return nil
 	}
 	
-}
-
-extension Double {
-
-	func toInt() -> Int? {
-		let roundedValue = rounded(.toNearestOrEven)
-		return Int(exactly: roundedValue)
-	}
-
 }

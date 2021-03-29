@@ -46,6 +46,12 @@ class StocksListController: UIViewController {
 		
 		getFavoritesTickers()
 		getTrands()
+		
+		// keyboard
+		let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+		view.addGestureRecognizer(tap)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 	
 	func hideTitles() {
@@ -72,6 +78,7 @@ class StocksListController: UIViewController {
 		searchBar.searchTextField.layer.borderWidth = 1
 		searchBar.searchTextField.layer.borderColor = UIColor.black.cgColor
 		searchBar.searchTextField.tintColor = .black
+		searchBar.searchTextField.textColor = .black
 		searchBar.tintColor = .black
 		searchBar.setImage(UIImage(named: "closeSearch"), for: .clear, state: .normal)
 		searchBar.searchTextField.font = UIFont(name: "Montserrat-SemiBold", size: 16)
@@ -115,7 +122,7 @@ class StocksListController: UIViewController {
 				}
 			case .failure:
 				// [need fix] handle error
-				print("get trands error")
+				break
 			}
 		}
 	}
@@ -131,7 +138,7 @@ class StocksListController: UIViewController {
 					self?.trands[index].website = website
 				case .failure:
 					// [need fix] handle error
-					print("get website error")
+					break
 				}
 				dispatchGroup.leave()
 			}
@@ -175,9 +182,9 @@ class StocksListController: UIViewController {
 			switch res {
 			case .success(let data):
 				self.favoritesSt = data
-			case .failure(let error):
+			case .failure:
 				// [need fix] handle error
-				print(error)
+				break
 			}
 		}
 	}
@@ -194,7 +201,7 @@ class StocksListController: UIViewController {
 					self?.favorites[index].isFavorite = true
 				case .failure:
 					// [need fix] handle error
-					print("getFavoriteSummary error")
+					break
 				}
 				dispatchGroup.leave()
 			}
@@ -230,6 +237,31 @@ class StocksListController: UIViewController {
 			break
 		}
 	}
+	
+	func checkFavoritesInStocks() {
+		for (index, trand) in stocks.enumerated() {
+			if favoritesSt.contains(trand.ticker) {
+				stocks[index].isFavorite = true
+			} else {
+				stocks[index].isFavorite = false
+			}
+		}
+	}
+	
+	// MARK: - keyboard show/hide handler
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
+	}
+	
+	@objc func keyboardWillShow(notification: NSNotification) {
+		guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+									as? NSValue)?.cgRectValue else { return }
+		additionalSafeAreaInsets.bottom = keyboardSize.height
+	}
+
+	@objc func keyboardWillHide(notification: NSNotification) {
+		additionalSafeAreaInsets.bottom = 0
+	}
 }
 
 // MARK: - MenuStackDelegate
@@ -262,18 +294,14 @@ extension StocksListController: StockCellDelegate {
 	func addToFavorite(_ stock: Stock) {
 		favorites.append(stock)
 		favoritesSt.append(stock.ticker)
-		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
-			// [need fix] handle save error
-			print(result)
-		}
+		// [need fix] handle save error
+		fileManager.saveFavoriteData(favorites: favoritesSt) { _ in }
 	}
 	
 	func deleteFromFavorite(_ stock: Stock) {
 		favorites.removeAll { $0.ticker == stock.ticker }
 		favoritesSt.removeAll { $0 == stock.ticker }
-		fileManager.saveFavoriteData(favorites: favoritesSt) { result in
-			// [need fix] handle save error
-			print(result)
-		}
+		// [need fix] handle save error
+		fileManager.saveFavoriteData(favorites: favoritesSt) { _ in }
 	}
 }

@@ -40,10 +40,11 @@ extension StocksListController: UISearchBarDelegate {
 							}
 						}
 					dg.notify(queue: .main) {
+						self?.checkFavoritesInStocks()
 						self?.tableView?.reloadData()
 					}
 				case .failure:
-					print("auto compl err")
+					break
 				}
 			}
 		}
@@ -64,6 +65,7 @@ extension StocksListController: UISearchBarDelegate {
 		searchBar?.endEditing(false)
 		
 		currentState = .trands
+		menuStack?.forceUpdatePosition(0)
 		updateState()
 		showTitles()
 		

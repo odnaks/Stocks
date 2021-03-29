@@ -37,7 +37,7 @@ class API {
 								  let currentPrice = quote["regularMarketPrice"] as? Double,
 								  let changeValue = quote["regularMarketChange"] as? Double,
 								  let changePercent = quote["regularMarketChangePercent"] as? Double,
-								  let name = quote["shortName"] as? String else { print("errr"); continue }
+								  let name = quote["shortName"] as? String else { continue }
 							// handle bags in api
 							if let i = symbol.firstIndex(of: "^") {
 								symbol.remove(at: i)
@@ -91,7 +91,6 @@ class API {
 									  changeValue: changeValue, changePercent: changePercent, website: website)
 						DispatchQueue.main.async { completion(.success(stock)) }
 					case .failure:
-						print("get summary api error")
 						DispatchQueue.main.async { completion(.failure(.apiError)) }
 					}
 		}
@@ -104,7 +103,6 @@ class API {
 		AF.request(url, method: .get, headers: self.headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
-//						print(data)
 						var trands = [Stock]()
 						guard let data = data as? [String: Any],
 							  let quotes = data["quotes"] as? [Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
@@ -112,7 +110,7 @@ class API {
 							guard let quote = anyQuote as? [String: Any],
 								  var symbol = quote["symbol"] as? String,
 								  let name = quote["shortname"] as? String,
-								  let isExist = quote["isYahooFinance"] as? Bool, isExist else { print("errr"); continue }
+								  let isExist = quote["isYahooFinance"] as? Bool, isExist else { continue }
 							// handle bags in api
 							if let i = symbol.firstIndex(of: "^") {
 								symbol.remove(at: i)
@@ -146,7 +144,6 @@ class API {
 							  let website = URL(string: "https://logo.clearbit.com/" + domain) else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 						DispatchQueue.main.async { completion(.success(website)) }
 					case .failure:
-						print("get website api error")
 						DispatchQueue.main.async { completion(.failure(.apiError)) }
 					}
 		}

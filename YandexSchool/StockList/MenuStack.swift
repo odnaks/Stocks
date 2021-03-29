@@ -81,4 +81,9 @@ class MenuStack: UIStackView {
 		delegate?.changeMenu(index: sender.tag)
 	}
 	
+	func forceUpdatePosition(_ index: Int) {
+		currentPosition = index
+		updateButtons()
+	}
+	
 }

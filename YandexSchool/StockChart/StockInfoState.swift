@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StockInfoState: Int {
+enum StockInfoState: Int, CaseIterable {
 	case chart = 0
 	case summary
 	case news

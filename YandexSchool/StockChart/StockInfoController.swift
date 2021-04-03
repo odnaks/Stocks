@@ -21,6 +21,7 @@ class StockInfoController: UIViewController {
 	private var stock: Stock?
 	
 	private var currentState: StockInfoState = .chart
+	private var pagesCount = StockInfoState.allCases.count
 	
 	// tmp
 	private var isStared: Bool = true
@@ -33,12 +34,27 @@ class StockInfoController: UIViewController {
 							 minFontSize: 14, maxFontSize: 18, minHeight: 20, maxHeight: 24)
 		
 		collectionView?.dataSource = self
+		collectionView?.delegate = self
 		
 		updateStarState()
 		titleLabel?.text = stock?.ticker.uppercased()
 		subtitleLabel?.text = stock?.name
 		buyButton?.layer.cornerRadius = 16
+		
+		setupLayout()
     }
+	
+	private func setupLayout() {
+		collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		let layout = UICollectionViewFlowLayout()
+		layout.scrollDirection = .horizontal
+		layout.minimumLineSpacing = 0
+		layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		guard let size = collectionView?.bounds.size else { return }
+		layout.itemSize = CGSize(width: size.width - 1, height: size.height - 1)
+		collectionView?.collectionViewLayout = layout
+		collectionView?.isPagingEnabled = true
+	}
 
 	class func fabric(_ stock: Stock) -> Self? {
 		let sb = UIStoryboard(name: "StockInfo", bundle: nil)
@@ -61,28 +77,46 @@ class StockInfoController: UIViewController {
 		updateStarState()
 	}
 	
+	func updateState() {
+		//
+	}
+	
 }
 
 // MARK: - MenuStackDelegate
 extension StockInfoController: MenuStackDelegate {
-	func updateState() {
-		print(#function)
-	}
 	
 	func changeMenu(index: Int) {
 		currentState = StockInfoState.init(rawValue: index) ?? .chart
+		
+		// ios14 bug https://developer.apple.com/forums/thread/663156
+		collectionView?.isPagingEnabled = false
+		collectionView?.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
+		collectionView?.isPagingEnabled = true
 		updateState()
 	}
 }
 
-extension StockInfoController: UICollectionViewDataSource {
+extension StockInfoController: UICollectionViewDataSource, UICollectionViewDelegate {
+	
+	func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+		let x = targetContentOffset.pointee.x
+		let item = x / view.frame.width
+		menuStack?.forceUpdatePosition(Int(item))
+	}
+	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		2
+		return pagesCount
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		if indexPath.row == 0 {
-			guard let cell = collectionView.
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockChartCell", for: indexPath) as? StockChartCell else { return UICollectionViewCell() }
+			return cell
+		} else {
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockSummaryCell", for: indexPath) as? StockSummaryCell else { return UICollectionViewCell() }
+			return cell
 		}
 	}
+	
 }

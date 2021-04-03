@@ -8,7 +8,6 @@ target 'YandexSchool' do
   pod 'SwiftLint'
   pod 'Alamofire'
   pod 'Kingfisher'
-  #pod 'Charts'
-  # Pods for YandexSchool
+#  pod "SwiftChart"
 
 end

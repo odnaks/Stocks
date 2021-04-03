@@ -44,8 +44,8 @@ class StocksListController: UIViewController {
 		pullControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 		tableView?.refreshControl = pullControl
 		
-		getFavoritesTickers()
-		getTrands()
+//		getFavoritesTickers()
+//		getTrands()
 		
 		// keyboard
 		let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))

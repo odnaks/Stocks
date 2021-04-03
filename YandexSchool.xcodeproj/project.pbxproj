@@ -40,6 +40,7 @@
 		F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */; };
 		F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */; };
 		F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA252612471900BFC3AD /* Double+rounded.swift */; };
+		F0F8C5422617CB31003FC608 /* StockChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C5412617CB31003FC608 /* StockChartController.swift */; };
 		F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDF90B2611270E00D572E4 /* StocksListState.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStack.swift; sourceTree = "<group>"; };
 		F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StocksListController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		F0AEAA252612471900BFC3AD /* Double+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+rounded.swift"; sourceTree = "<group>"; };
+		F0F8C5412617CB31003FC608 /* StockChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockChartController.swift; sourceTree = "<group>"; };
 		F0FDF90B2611270E00D572E4 /* StocksListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +184,7 @@
 				F02657B12609387D0011AA21 /* Model */,
 				F0FDF90E2611276E00D572E4 /* Utils */,
 				F02657B2260938870011AA21 /* Network */,
+				F0F8C5402617CB18003FC608 /* StockChart */,
 				F0FF01E6260AA96000EBB71D /* StockList */,
 			);
 			path = YandexSchool;
@@ -196,6 +199,14 @@
 				F058B36D2607D4A2004E76FB /* Assets.xcassets */,
 			);
 			path = System;
+			sourceTree = "<group>";
+		};
+		F0F8C5402617CB18003FC608 /* StockChart */ = {
+			isa = PBXGroup;
+			children = (
+				F0F8C5412617CB31003FC608 /* StockChartController.swift */,
+			);
+			path = StockChart;
 			sourceTree = "<group>";
 		};
 		F0FDF90E2611276E00D572E4 /* Utils */ = {
@@ -380,6 +391,7 @@
 				F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */,
 				F02657AF260938780011AA21 /* Stock.swift in Sources */,
 				F058B3672607D4A0004E76FB /* SceneDelegate.swift in Sources */,
+				F0F8C5422617CB31003FC608 /* StockChartController.swift in Sources */,
 				F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */,
 				F063113F260F8D3E0012748F /* UIButton+changeColor.swift in Sources */,
 			);

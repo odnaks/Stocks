@@ -41,6 +41,11 @@
 		F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */; };
 		F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA252612471900BFC3AD /* Double+rounded.swift */; };
 		F0F8C5422617CB31003FC608 /* StockChartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C5412617CB31003FC608 /* StockChartController.swift */; };
+		F0F8C5912618CCAE003FC608 /* StockInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C5902618CCAE003FC608 /* StockInfoController.swift */; };
+		F0F8C5972618EDEF003FC608 /* StockInfoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C5962618EDEF003FC608 /* StockInfoState.swift */; };
+		F0F8C59A2618EE99003FC608 /* StockInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0F8C5992618EE99003FC608 /* StockInfo.storyboard */; };
+		F0F8C59E2618FF01003FC608 /* StockChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C59D2618FF01003FC608 /* StockChartCell.swift */; };
+		F0F8C5A12618FF19003FC608 /* StockSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C5A02618FF19003FC608 /* StockSummaryCell.swift */; };
 		F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDF90B2611270E00D572E4 /* StocksListState.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +88,11 @@
 		F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StocksListController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		F0AEAA252612471900BFC3AD /* Double+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+rounded.swift"; sourceTree = "<group>"; };
 		F0F8C5412617CB31003FC608 /* StockChartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockChartController.swift; sourceTree = "<group>"; };
+		F0F8C5902618CCAE003FC608 /* StockInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockInfoController.swift; sourceTree = "<group>"; };
+		F0F8C5962618EDEF003FC608 /* StockInfoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockInfoState.swift; sourceTree = "<group>"; };
+		F0F8C5992618EE99003FC608 /* StockInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StockInfo.storyboard; sourceTree = "<group>"; };
+		F0F8C59D2618FF01003FC608 /* StockChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockChartCell.swift; sourceTree = "<group>"; };
+		F0F8C5A02618FF19003FC608 /* StockSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockSummaryCell.swift; sourceTree = "<group>"; };
 		F0FDF90B2611270E00D572E4 /* StocksListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksListState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,9 +214,22 @@
 		F0F8C5402617CB18003FC608 /* StockChart */ = {
 			isa = PBXGroup;
 			children = (
+				F0F8C5962618EDEF003FC608 /* StockInfoState.swift */,
+				F0F8C5A32618FF8B003FC608 /* Pages */,
 				F0F8C5412617CB31003FC608 /* StockChartController.swift */,
+				F0F8C5902618CCAE003FC608 /* StockInfoController.swift */,
+				F0F8C5992618EE99003FC608 /* StockInfo.storyboard */,
 			);
 			path = StockChart;
+			sourceTree = "<group>";
+		};
+		F0F8C5A32618FF8B003FC608 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				F0F8C59D2618FF01003FC608 /* StockChartCell.swift */,
+				F0F8C5A02618FF19003FC608 /* StockSummaryCell.swift */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		F0FDF90E2611276E00D572E4 /* Utils */ = {
@@ -304,6 +327,7 @@
 				F02EF193260B41E60090957C /* Montserrat-ExtraLight.ttf in Resources */,
 				F02EF18F260B41E60090957C /* Montserrat-ThinItalic.ttf in Resources */,
 				F058B36C2607D4A0004E76FB /* StocksList.storyboard in Resources */,
+				F0F8C59A2618EE99003FC608 /* StockInfo.storyboard in Resources */,
 				F02EF184260B41E60090957C /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				F02EF190260B41E60090957C /* Montserrat-Light.ttf in Resources */,
 				F02EF18C260B41E60090957C /* Montserrat-SemiBold.ttf in Resources */,
@@ -381,14 +405,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0F8C5972618EDEF003FC608 /* StockInfoState.swift in Sources */,
 				F058B38B2607EE50004E76FB /* StocksListController.swift in Sources */,
 				F058B3652607D4A0004E76FB /* AppDelegate.swift in Sources */,
 				F0631142260FCBAC0012748F /* FileDataManager.swift in Sources */,
 				F06A64182609473C001CD275 /* StockCell.swift in Sources */,
+				F0F8C5A12618FF19003FC608 /* StockSummaryCell.swift in Sources */,
+				F0F8C59E2618FF01003FC608 /* StockChartCell.swift in Sources */,
 				F058B38F2607F02D004E76FB /* API.swift in Sources */,
 				F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */,
 				F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */,
 				F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */,
+				F0F8C5912618CCAE003FC608 /* StockInfoController.swift in Sources */,
 				F02657AF260938780011AA21 /* Stock.swift in Sources */,
 				F058B3672607D4A0004E76FB /* SceneDelegate.swift in Sources */,
 				F0F8C5422617CB31003FC608 /* StockChartController.swift in Sources */,

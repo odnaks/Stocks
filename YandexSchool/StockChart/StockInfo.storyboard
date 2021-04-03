@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Bold.ttf">
+            <string>Montserrat-Bold</string>
+        </array>
+        <array key="Montserrat-SemiBold.ttf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Stock Info Controller-->
+        <scene sceneID="qZH-ra-8t6">
+            <objects>
+                <viewController storyboardIdentifier="stockInfoController" id="gIL-LH-QLE" customClass="StockInfoController" customModule="YandexSchool" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DA3-i1-9Ff">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOL-br-K5C">
+                                <rect key="frame" x="0.0" y="44" width="414" height="120"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndB-TB-DyY">
+                                        <rect key="frame" x="18" y="33" width="24" height="24"/>
+                                        <state key="normal" image="backSearch"/>
+                                        <connections>
+                                            <action selector="clickBack:" destination="gIL-LH-QLE" eventType="touchUpInside" id="6BF-Ik-uLe"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AAPL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAX-tI-Qfc">
+                                        <rect key="frame" x="181" y="18" width="52" height="22"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Inc." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nx9-6X-GBl">
+                                        <rect key="frame" x="176" y="44" width="62" height="15"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4G-X5-LeY">
+                                        <rect key="frame" x="378" y="34" width="19" height="22"/>
+                                        <state key="normal" image="StarFill"/>
+                                        <connections>
+                                            <action selector="clickStar:" destination="gIL-LH-QLE" eventType="touchUpInside" id="22R-TS-dFa"/>
+                                        </connections>
+                                    </button>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQc-B7-7h7">
+                                        <rect key="frame" x="20" y="84" width="394" height="24"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="bottomLeft" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Xua-OK-0Oc" customClass="MenuStack" customModule="YandexSchool" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="24"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAR-TJ-FAN">
+                                                        <rect key="frame" x="0.0" y="1" width="30" height="22"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                        <state key="normal" title="Button"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="zo3-ZT-pvZ"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="Cup-4V-a29"/>
+                                            <constraint firstItem="Xua-OK-0Oc" firstAttribute="top" secondItem="dQc-B7-7h7" secondAttribute="top" id="Dce-AO-KMu"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xua-OK-0Oc" secondAttribute="bottom" id="LYf-iw-Kc5"/>
+                                            <constraint firstAttribute="trailing" secondItem="Xua-OK-0Oc" secondAttribute="trailing" constant="20" id="flw-JT-Ltz"/>
+                                            <constraint firstItem="Xua-OK-0Oc" firstAttribute="leading" secondItem="dQc-B7-7h7" secondAttribute="leading" id="qFl-xj-vob"/>
+                                        </constraints>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="DAX-tI-Qfc" firstAttribute="centerX" secondItem="oOL-br-K5C" secondAttribute="centerX" id="78z-BL-GeA"/>
+                                    <constraint firstItem="ndB-TB-DyY" firstAttribute="top" secondItem="oOL-br-K5C" secondAttribute="top" constant="33" id="8Ri-JJ-NBj"/>
+                                    <constraint firstItem="L4G-X5-LeY" firstAttribute="top" secondItem="oOL-br-K5C" secondAttribute="top" constant="34" id="NHj-xh-5oj"/>
+                                    <constraint firstItem="nx9-6X-GBl" firstAttribute="top" secondItem="DAX-tI-Qfc" secondAttribute="bottom" constant="4" id="RfX-5r-hZg"/>
+                                    <constraint firstAttribute="trailing" secondItem="dQc-B7-7h7" secondAttribute="trailing" id="S59-yb-0cR"/>
+                                    <constraint firstAttribute="trailing" secondItem="L4G-X5-LeY" secondAttribute="trailing" constant="17" id="SKf-VT-FWW"/>
+                                    <constraint firstItem="ndB-TB-DyY" firstAttribute="leading" secondItem="oOL-br-K5C" secondAttribute="leading" constant="18" id="SXJ-d8-a3o"/>
+                                    <constraint firstAttribute="bottom" secondItem="dQc-B7-7h7" secondAttribute="bottom" constant="12" id="Udd-Vy-QiF"/>
+                                    <constraint firstAttribute="height" constant="120" id="kB9-Zv-Y3m"/>
+                                    <constraint firstItem="nx9-6X-GBl" firstAttribute="centerX" secondItem="oOL-br-K5C" secondAttribute="centerX" id="mpy-Ec-Xlh"/>
+                                    <constraint firstItem="DAX-tI-Qfc" firstAttribute="top" secondItem="oOL-br-K5C" secondAttribute="top" constant="18" id="w7y-eK-Qr1"/>
+                                    <constraint firstItem="dQc-B7-7h7" firstAttribute="leading" secondItem="oOL-br-K5C" secondAttribute="leading" constant="20" id="x4A-Aq-4S8"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ws0-AD-kJW">
+                                <rect key="frame" x="0.0" y="164" width="414" height="602"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a0D-rA-GfU">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stockChartCell" id="fVV-Wc-A9d" customClass="StockChartCell" customModule="YandexSchool" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="10" width="410" height="582"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MFh-km-4ZO">
+                                            <rect key="frame" x="0.0" y="0.0" width="410" height="582"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="410" height="582"/>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stockSummaryCell" id="PVD-oo-mmG" customClass="StockSummaryCell" customModule="YandexSchool" customModuleProvider="target">
+                                        <rect key="frame" x="420" y="10" width="410" height="582"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hAm-t8-PX4">
+                                            <rect key="frame" x="0.0" y="0.0" width="410" height="582"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="410" height="582"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6T-f4-Hwb">
+                                <rect key="frame" x="16" y="786" width="382" height="56"/>
+                                <color key="backgroundColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="JWA-ZZ-O5j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
+                                <state key="normal" title="Buy for $132.04">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pUD-GE-omY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="R6T-f4-Hwb" firstAttribute="leading" secondItem="pUD-GE-omY" secondAttribute="leading" constant="16" id="2qz-LT-P5K"/>
+                            <constraint firstItem="pUD-GE-omY" firstAttribute="trailing" secondItem="R6T-f4-Hwb" secondAttribute="trailing" constant="16" id="J6Y-XN-ZfX"/>
+                            <constraint firstItem="ws0-AD-kJW" firstAttribute="top" secondItem="oOL-br-K5C" secondAttribute="bottom" id="R93-pR-22p"/>
+                            <constraint firstItem="R6T-f4-Hwb" firstAttribute="top" secondItem="ws0-AD-kJW" secondAttribute="bottom" constant="20" id="aEU-dK-1gD"/>
+                            <constraint firstItem="pUD-GE-omY" firstAttribute="trailing" secondItem="oOL-br-K5C" secondAttribute="trailing" id="cGj-wy-1JG"/>
+                            <constraint firstItem="pUD-GE-omY" firstAttribute="bottom" secondItem="R6T-f4-Hwb" secondAttribute="bottom" constant="20" id="esb-FZ-BP0"/>
+                            <constraint firstItem="pUD-GE-omY" firstAttribute="trailing" secondItem="ws0-AD-kJW" secondAttribute="trailing" id="gaE-li-6io"/>
+                            <constraint firstItem="oOL-br-K5C" firstAttribute="top" secondItem="pUD-GE-omY" secondAttribute="top" id="gvZ-it-CK2"/>
+                            <constraint firstItem="oOL-br-K5C" firstAttribute="leading" secondItem="pUD-GE-omY" secondAttribute="leading" id="kkV-NY-MMI"/>
+                            <constraint firstItem="ws0-AD-kJW" firstAttribute="leading" secondItem="pUD-GE-omY" secondAttribute="leading" id="ksQ-Up-5FH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buyButton" destination="R6T-f4-Hwb" id="efP-Qj-RBa"/>
+                        <outlet property="collectionView" destination="ws0-AD-kJW" id="Oza-ZG-xa9"/>
+                        <outlet property="headerView" destination="oOL-br-K5C" id="EJ4-IH-MbB"/>
+                        <outlet property="menuStack" destination="Xua-OK-0Oc" id="2Fk-C4-HjO"/>
+                        <outlet property="starButton" destination="L4G-X5-LeY" id="SbD-Sk-FB5"/>
+                        <outlet property="subtitleLabel" destination="nx9-6X-GBl" id="7Pq-g0-LBW"/>
+                        <outlet property="titleLabel" destination="DAX-tI-Qfc" id="GQb-D6-wP3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8O5-NQ-CuK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-28.985507246376812" y="687.72321428571422"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="StarFill" width="19" height="18.5"/>
+        <image name="backSearch" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

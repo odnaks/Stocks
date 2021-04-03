@@ -26,7 +26,7 @@ class StockCell: UITableViewCell {
 	
 	var delegate: StockCellDelegate?
 	
-	private var stock: Stock?
+	var stock: Stock?
 	private var isEven: Bool = false
 	
 	override func awakeFromNib() {

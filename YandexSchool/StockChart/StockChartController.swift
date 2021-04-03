@@ -7,6 +7,7 @@
 
 import UIKit
 
+// id: stockChartController
 class StockChartController: UIViewController {
 
     override func viewDidLoad() {
@@ -15,11 +16,15 @@ class StockChartController: UIViewController {
 		let graphView = GraphView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
 		graphView.backgroundColor = .clear
 		view.addSubview(graphView)
+		
     }
 
 }
 
 class GraphView: UIView {
+	
+	private var thumb = CAShapeLayer()
+	private var step: CGFloat = 0
 
 	var data: [CGFloat] = [2, 6, 12, 4, 5, 7, 5, 6, 6, 3] {
 		didSet {
@@ -38,11 +43,50 @@ class GraphView: UIView {
 		UIColor.black.setStroke()
 		path.lineWidth = 2
 		path.stroke()
+		print(thumb.position)
+		print(thumb.bounds)
+		print(thumb.frame)
+		thumb.fillColor = UIColor.white.cgColor
+//		thumb.frame = self.bounds
+		let radius: CGFloat = 4
+		let center = CGPoint(x: 0, y: 0)
+		let path2 = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+		thumb.path = path2.cgPath
+		thumb.strokeColor = UIColor(red: 0.878, green: 0.039, blue: 0.118, alpha: 1).cgColor
+		thumb.lineWidth = radius / 3
+		thumb.zPosition = 1
+		layer.addSublayer(thumb)
+		print(thumb.position)
+		print(thumb.bounds)
+		print(thumb.frame)
+	}
+	
+	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		if let touch = touches.first {
+			let position = touch.location(in: self)
+//			print(position)
+		}
+	}
+	
+	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+		if let touch = touches.first {
+			let position = touch.location(in: self)
+			let xPosition = position.x
+			
+			var index: Int = Int(floor(xPosition / step))
+			let mode = xPosition.truncatingRemainder(dividingBy: step)
+			if  mode > step / 2 {
+				index += 1
+			}
+			if index < data.count {
+				thumb.position = CGPoint(x: CGFloat(index) * step, y: coordYFor(index: index))
+			}
+		}
 	}
 
 	func quadCurvedPath() -> UIBezierPath {
 		let path = UIBezierPath()
-		let step = bounds.width / CGFloat(data.count - 1)
+		step = bounds.width / CGFloat(data.count - 1)
 
 		var p1 = CGPoint(x: 0, y: coordYFor(index: 0))
 		path.move(to: p1)

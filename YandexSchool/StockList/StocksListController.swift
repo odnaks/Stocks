@@ -34,6 +34,9 @@ class StocksListController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView?.dataSource = self
+		tableView?.delegate = self
+//		tableView?.allowsSelection = true
+//		tableView?.isUserInteractionEnabled = true
 		
 		menuStack?.delegate = self
 		menuStack?.configure(with: ["Trands", "Favourite"])
@@ -44,11 +47,12 @@ class StocksListController: UIViewController {
 		pullControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 		tableView?.refreshControl = pullControl
 		
-//		getFavoritesTickers()
+		getFavoritesTickers()
 //		getTrands()
 		
 		// keyboard
 		let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+		tap.cancelsTouchesInView = false // avoid table view selection and this gesture conflict
 		view.addGestureRecognizer(tap)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -273,7 +277,7 @@ extension StocksListController: MenuStackDelegate {
 }
 
 // MARK: - UITableViewDataSource
-extension StocksListController: UITableViewDataSource {
+extension StocksListController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return stocks.count
 	}
@@ -286,6 +290,13 @@ extension StocksListController: UITableViewDataSource {
 		cell.configure(with: stocks[indexPath.row], isEven: indexPath.row % 2 == 0)
 		cell.delegate = self
 		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? StockCell,
+			  let stock = cell.stock,
+			  let vc = StockInfoController.fabric(stock) else { return }
+		navigationController?.pushViewController(vc, animated: true)
 	}
 }
 

@@ -17,6 +17,9 @@ extension StocksListController: UISearchBarDelegate {
 		searchWorkItem?.cancel()
 		searchWorkItem = nil
 	
+		// 	dispatchWorkItem - для отмены операции после ввода следующей буквы.
+		// 	dispatchGroup - для группы задач, получающий дополнительную
+		// информацию (getSummary) по списку акций, полученному из autoComplete.
 		searchWorkItem = DispatchWorkItem { [weak self] in
 			self?.api.autoComplete(with: searchText) { result in
 				switch result {

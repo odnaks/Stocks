@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.4.1)
+  - Alamofire (5.4.2)
   - Kingfisher (6.2.1)
   - SwiftLint (0.43.1)
 
@@ -15,7 +15,7 @@ SPEC REPOS:
     - SwiftLint
 
 SPEC CHECKSUMS:
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: bfbc4c2fe5909b1d94fb4ef2277c6b3727ef5dae
   Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 

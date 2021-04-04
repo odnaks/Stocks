@@ -32,35 +32,41 @@ class StockInfoController: UIViewController {
 		menuStack?.delegate = self
 		menuStack?.configure(with: ["Chart", "Summary", "News", "Forecast", "Ideas", "Events"],
 							 minFontSize: 14, maxFontSize: 18, minHeight: 20, maxHeight: 24)
-		
-		collectionView?.dataSource = self
-		collectionView?.delegate = self
-		
-		updateStarState()
-		titleLabel?.text = stock?.ticker.uppercased()
-		subtitleLabel?.text = stock?.name
-		buyButton?.layer.cornerRadius = 16
-		
-		setupLayout()
+
+		setupStockInfo()
+		setupCollectionView()
     }
 	
-	private func setupLayout() {
-		collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		let layout = UICollectionViewFlowLayout()
-		layout.scrollDirection = .horizontal
-		layout.minimumLineSpacing = 0
-		layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		guard let size = collectionView?.bounds.size else { return }
-		layout.itemSize = CGSize(width: size.width - 1, height: size.height - 1)
-		collectionView?.collectionViewLayout = layout
-		collectionView?.isPagingEnabled = true
-	}
-
 	class func fabric(_ stock: Stock) -> Self? {
 		let sb = UIStoryboard(name: "StockInfo", bundle: nil)
 		let vc = sb.instantiateViewController(withIdentifier: "stockInfoController") as? Self
 		vc?.stock = stock
 		return vc
+	}
+	
+	private func setupCollectionView() {
+		collectionView?.dataSource = self
+		collectionView?.delegate = self
+		
+		collectionView?.delaysContentTouches = false
+		collectionView?.contentInset = UIEdgeInsets.zero
+		let layout = UICollectionViewFlowLayout()
+		layout.scrollDirection = .horizontal
+		layout.minimumLineSpacing = 0
+		layout.sectionInset = UIEdgeInsets.zero
+		guard let size = collectionView?.bounds.size else { return }
+		layout.itemSize = CGSize(width: size.width, height: size.height)
+		collectionView?.collectionViewLayout = layout
+		collectionView?.isPagingEnabled = true
+	}
+	
+	private func setupStockInfo() {
+		updateStarState()
+		titleLabel?.text = stock?.ticker.uppercased()
+		subtitleLabel?.text = stock?.name
+		if let currentPrice = stock?.currentPrice {
+			buyButton?.setTitle("Buy for $\(currentPrice.rounded(toPlaces: 2))", for: .normal)
+		}
 	}
 	
 	@IBAction func clickBack(_ sender: Any) {
@@ -97,6 +103,7 @@ extension StockInfoController: MenuStackDelegate {
 	}
 }
 
+// MARK: - CollectionView
 extension StockInfoController: UICollectionViewDataSource, UICollectionViewDelegate {
 	
 	func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -112,6 +119,8 @@ extension StockInfoController: UICollectionViewDataSource, UICollectionViewDeleg
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		if indexPath.row == 0 {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockChartCell", for: indexPath) as? StockChartCell else { return UICollectionViewCell() }
+			cell.delegate = self
+			cell.configure(with: stock)
 			return cell
 		} else {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockSummaryCell", for: indexPath) as? StockSummaryCell else { return UICollectionViewCell() }
@@ -119,4 +128,15 @@ extension StockInfoController: UICollectionViewDataSource, UICollectionViewDeleg
 		}
 	}
 	
+}
+
+// MARK: - ChartDelegate
+extension StockInfoController: ChartDelegate {
+	func startWorkingWithGraph() {
+		collectionView?.isScrollEnabled = false
+	}
+	
+	func endWorkingWithGraph() {
+		collectionView?.isScrollEnabled = true
+	}
 }

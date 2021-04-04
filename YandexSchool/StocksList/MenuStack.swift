@@ -31,7 +31,7 @@ class MenuStack: UIStackView {
 	}
 	
 	func configure(with titles: [String], minFontSize: CGFloat = 18, maxFontSize: CGFloat = 28,
-				   minHeight: CGFloat = 24, maxHeight: CGFloat = 32) {
+						minHeight: CGFloat = 24, maxHeight: CGFloat = 32) {
 		arrangedSubviews.forEach({
 			removeArrangedSubview($0)
 			$0.removeFromSuperview()

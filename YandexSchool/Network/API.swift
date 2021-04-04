@@ -14,6 +14,10 @@ enum NetworkError: Error {
 }
 
 class API {
+	static var shared = API()
+	
+	private init() {}
+	
 	let headers: HTTPHeaders = HTTPHeaders([HTTPHeader(name: "x-rapidapi-key", value: "afc4ebcfcemsha34c67ea4991f81p1ce626jsnfd9af1de4751"),
 											HTTPHeader(name: "x-rapidapi-host", value: "apidojo-yahoo-finance-v1.p.rapidapi.com")])
 	let queue = DispatchQueue(label: "favAdv", qos: .background, attributes: .concurrent)
@@ -24,7 +28,6 @@ class API {
 				   method: .get, headers: self.headers).validate().responseJSON(queue: queue) { response in
 					switch response.result {
 					case .success(let data):
-//						print(data)
 						var trands = [Stock]()
 						guard let data = data as? [String: Any],
 							  let finance = data["finance"] as? [String: Any],
@@ -59,7 +62,6 @@ class API {
 	}
 	
 	func getSummary(with ticker: String, _ completion: @escaping (Result<Stock, NetworkError>) -> Void) {
-//		return
 		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile?symbol=\(ticker)")
 			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
 			AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
@@ -68,8 +70,6 @@ class API {
 						guard let data = data as? [String: Any],
 							  let ticker = data["symbol"] as? String,
 							  let prices = data["price"] as? [String: Any],
-//							  let symbol = prices["currencySymbol"] as? String,
-//							  let ticker = prices["fromCurrency"] as? String,
 							  let currentPriceArr = prices["regularMarketPrice"] as? [String: Any],
 							  let currentPrice = currentPriceArr["raw"] as? Double,
 							  let changeValueArr = prices["regularMarketChange"] as? [String: Any],
@@ -151,5 +151,29 @@ class API {
 		
 	}
 	
+	func getChart(with ticker: String, and range: StockChartRangeState, _ completion: @escaping (Result<([Int?], [Double?]), NetworkError>) -> Void) {
+		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-chart?interval=\(range.apiIntervalStr)&symbol=\(ticker)&range=\(range.apiRangeStr)")
+			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+			AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+					switch response.result {
+					case .success(let data):
+						
+						guard let data = data as? [String: Any],
+							  let chart = data["chart"] as? [String: Any],
+							  let results = chart["result"] as? [Any],
+							  let result = results[0] as? [String: Any],
+							  let timestamp = result["timestamp"] as? [Int?], // <-
+							  let indicators = result["indicators"] as? [String: Any],
+							  
+							  let quotes = indicators["quote"] as? [Any],
+							  let quote = quotes[0] as? [String: Any],
+							  let prices = quote["open"] as? [Double?] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+						DispatchQueue.main.async { completion(.success((timestamp, prices))) }
+					case .failure:
+						DispatchQueue.main.async { completion(.failure(.apiError)) }
+					}
+		}
+		
+	}
 	
 }

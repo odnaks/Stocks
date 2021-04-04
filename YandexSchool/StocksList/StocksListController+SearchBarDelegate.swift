@@ -21,7 +21,7 @@ extension StocksListController: UISearchBarDelegate {
 		// 	dispatchGroup - для группы задач, получающий дополнительную
 		// информацию (getSummary) по списку акций, полученному из autoComplete.
 		searchWorkItem = DispatchWorkItem { [weak self] in
-			self?.api.autoComplete(with: searchText) { result in
+			API.shared.autoComplete(with: searchText) { result in
 				switch result {
 				case .success(let data):
 					let dg = DispatchGroup()
@@ -30,7 +30,7 @@ extension StocksListController: UISearchBarDelegate {
 						guard let stocks = self?.stocks else { return }
 						for (index, stock) in stocks.enumerated() {
 							dg.enter()
-							self?.api.getSummary(with: stock.ticker) { summaryResult in
+							API.shared.getSummary(with: stock.ticker) { summaryResult in
 								dg.leave()
 								switch summaryResult {
 								case .success(let summaryStock):

@@ -23,7 +23,6 @@ class StocksListController: UIViewController {
 	private var favoritesSt = [String]()
 
 	private lazy var fileManager = FileDataManager()
-	lazy var api = API()
 	var currentState: StocksListState = .trands
 	
 	// search bar
@@ -108,7 +107,7 @@ class StocksListController: UIViewController {
 	private func getTrands() {
 		trands = []
 		indicator?.startAnimating()
-		api.getTrands { [weak self] result in
+		API.shared.getTrands { [weak self] result in
 			self?.indicator?.stopAnimating()
 			switch result {
 			case .success(let data):
@@ -135,7 +134,7 @@ class StocksListController: UIViewController {
 		let dispatchGroup = DispatchGroup()
 		for (index, stock) in stocks.enumerated() {
 			dispatchGroup.enter()
-			api.getWebsite(with: stock.ticker) { [weak self] result in
+			API.shared.getWebsite(with: stock.ticker) { [weak self] result in
 				switch result {
 				case .success(let website):
 					guard self?.trands.count ?? 0 > index else { break }
@@ -197,7 +196,7 @@ class StocksListController: UIViewController {
 		let dispatchGroup = DispatchGroup()
 		for (index, stock) in favorites.enumerated() {
 			dispatchGroup.enter()
-			api.getSummary(with: stock.ticker) { [weak self] result in
+			API.shared.getSummary(with: stock.ticker) { [weak self] result in
 				switch result {
 				case .success(let data):
 					guard self?.favorites.count ?? 0 > index else { break }

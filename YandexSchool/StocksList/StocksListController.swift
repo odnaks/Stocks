@@ -296,12 +296,13 @@ extension StocksListController: UITableViewDataSource, UITableViewDelegate {
 		guard let cell = tableView.cellForRow(at: indexPath) as? StockCell,
 			  let stock = cell.stock,
 			  let vc = StockInfoController.fabric(stock) else { return }
+		vc.delegate = self
 		navigationController?.pushViewController(vc, animated: true)
 	}
 }
 
 // MARK: - StockCellDelegate
-extension StocksListController: StockCellDelegate {
+extension StocksListController: FavoriteManagerDelegate {
 	func addToFavorite(_ stock: Stock) {
 		favorites.append(stock)
 		favoritesSt.append(stock.ticker)

@@ -23,11 +23,13 @@ class StockInfoController: UIViewController {
 	private var currentState: StockInfoState = .chart
 	private var pagesCount = StockInfoState.allCases.count
 	
-	// tmp
+	var delegate: FavoriteManagerDelegate?
 	private var isStared: Bool = true
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		isStared = stock?.isFavorite ?? false
 		
 		menuStack?.delegate = self
 		menuStack?.configure(with: ["Chart", "Summary", "News", "Forecast", "Ideas", "Events"],
@@ -93,10 +95,9 @@ class StockInfoController: UIViewController {
 	@IBAction func clickStar(_ sender: Any) {
 		isStared = !isStared
 		updateStarState()
-	}
-	
-	func updateState() {
-		//
+		stock?.isFavorite = isStared
+		guard let stock = stock else { return }
+		isStared ? delegate?.addToFavorite(stock) : delegate?.deleteFromFavorite(stock)
 	}
 	
 }
@@ -111,7 +112,6 @@ extension StockInfoController: MenuStackDelegate {
 		collectionView?.isPagingEnabled = false
 		collectionView?.scrollToItem(at: IndexPath(row: index, section: 0), at: .centeredHorizontally, animated: true)
 		collectionView?.isPagingEnabled = true
-		updateState()
 	}
 }
 
@@ -129,18 +129,22 @@ extension StockInfoController: UICollectionViewDataSource, UICollectionViewDeleg
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		if indexPath.row == 0 {
+		let index = indexPath.row
+		if index == 0 {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockChartCell", for: indexPath) as? StockChartCell else { return UICollectionViewCell() }
 			cell.delegate = self
 			cell.configure(with: stock)
 			return cell
-		} else if indexPath.row == 1 {
+		} else if index == 1 {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockSummaryCell", for: indexPath) as? StockSummaryCell else { return UICollectionViewCell() }
 			cell.configure(with: stock)
 			return cell
-		} else {
+		} else if index == 2 {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockNewsCell", for: indexPath) as? StockNewsCell else { return UICollectionViewCell() }
 			cell.configure(with: stock)
+			return cell
+		} else {
+			let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockDefaultCell", for: indexPath) as UICollectionViewCell
 			return cell
 		}
 	}

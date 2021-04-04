@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-protocol StockCellDelegate {
+protocol FavoriteManagerDelegate {
 	func addToFavorite(_ stock: Stock)
 	func deleteFromFavorite(_ stock: Stock)
 }
@@ -24,7 +24,7 @@ class StockCell: UITableViewCell {
 	@IBOutlet weak var bgView: UIView?
 	@IBOutlet weak var starButton: UIButton?
 	
-	var delegate: StockCellDelegate?
+	var delegate: FavoriteManagerDelegate?
 	
 	var stock: Stock?
 	private var isEven: Bool = false

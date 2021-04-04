@@ -193,8 +193,32 @@
                                             <outlet property="tableView" destination="Y8a-xh-EG3" id="y5s-mw-Bls"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stockNewsCell" id="JsQ-rF-YcD" customClass="StockNewsCell" customModule="YandexSchool" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stockDefaultCell" id="nJd-UT-sCT">
                                         <rect key="frame" x="2" y="592" width="410" height="582"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MS5-7T-hbS">
+                                            <rect key="frame" x="0.0" y="0.0" width="410" height="582"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="not yet available..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki2-NE-PwD">
+                                                    <rect key="frame" x="113" y="131" width="184.5" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="21"/>
+                                                    <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ki2-NE-PwD" firstAttribute="centerX" secondItem="MS5-7T-hbS" secondAttribute="centerX" id="Guk-uA-bHE"/>
+                                                <constraint firstItem="ki2-NE-PwD" firstAttribute="top" secondItem="MS5-7T-hbS" secondAttribute="top" constant="131" id="o2w-6B-lgJ"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="customSize" width="410" height="582"/>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stockNewsCell" id="JsQ-rF-YcD" customClass="StockNewsCell" customModule="YandexSchool" customModuleProvider="target">
+                                        <rect key="frame" x="2" y="1184" width="410" height="582"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7Me-eG-BzK">
                                             <rect key="frame" x="0.0" y="0.0" width="410" height="582"/>
@@ -377,7 +401,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stockChartCell" id="fVV-Wc-A9d" customClass="StockChartCell" customModule="YandexSchool" customModuleProvider="target">
-                                        <rect key="frame" x="30" y="1184" width="354" height="595"/>
+                                        <rect key="frame" x="30" y="1776" width="354" height="595"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="UGM-Ab-2Cs">
                                             <rect key="frame" x="0.0" y="0.0" width="354" height="595"/>

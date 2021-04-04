@@ -45,8 +45,7 @@ extension StockNewsCell: UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier:indexPath.row % 2 == 0 ?
-														"newsRightTableCell" : "newsLeftTableCell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: indexPath.row % 2 == 0 ? "newsRightTableCell" : "newsLeftTableCell")
 														as? NewsTableCell else { return UITableViewCell() }
 		cell.configure(with: news[indexPath.row])
 		return cell

@@ -17,6 +17,7 @@ class StockChartCell: UICollectionViewCell {
 	@IBOutlet weak var titleLabel: UILabel?
 	@IBOutlet weak var subtitleLabel: UILabel?
 	@IBOutlet weak var graphView: GraphView?
+	@IBOutlet weak var indicator: UIActivityIndicatorView?
 	@IBOutlet var rangeButtons: [UIButton]?
 	var delegate: ChartDelegate?
 	private var stock: Stock?
@@ -49,7 +50,9 @@ class StockChartCell: UICollectionViewCell {
 	
 	private func getChart() {
 		guard let ticker = stock?.ticker else { return }
-		API.shared.getChart(with: ticker, and: currentRangeState) { result in
+		API.shared.getChart(with: ticker, and: currentRangeState) { [weak self] result in
+			guard let self = self else { return }
+			self.indicator?.stopAnimating()
 			switch result {
 			case .success((let timespampes, let prices)):
 				let (datesFormated, pricesFormated) = self.screeningApiData(timestampes: timespampes, prices: prices)
@@ -91,6 +94,7 @@ class StockChartCell: UICollectionViewCell {
 		guard let button = sender as? UIButton else { return }
 		currentRangeState = StockChartRangeState.init(rawValue: button.tag) ?? .month
 		updateRangeButtons()
+		indicator?.startAnimating()
 		getChart()
 	}
 	

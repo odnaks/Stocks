@@ -240,4 +240,38 @@ class API {
 		
 	}
 	
+	// MARK: - News
+	func getNews(with ticker: String, _ completion: @escaping (Result<[News], NetworkError>) -> Void) {
+		guard let url = URL(string: "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-news?category=\(ticker)&region=US")
+			else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+			AF.request(url, method: .get, headers: headers).validate().responseJSON(queue: queue) { response in
+					switch response.result {
+					case .success(let data):
+						guard let data = data as? [String: Any],
+							  let items = data["items"] as? [String: Any],
+							  let results = items["result"] as? [Any] else { DispatchQueue.main.async { completion(.failure(.parseError)) }; return }
+						var newsArr = [News]()
+						for result in results {
+							guard let resultDic = result as? [String: Any],
+								  let title = resultDic["title"] as? String else { continue }
+							var news = News(title: title)
+							news.link = resultDic["link"] as? String
+							news.summary = resultDic["summary"] as? String
+							news.date = resultDic["published_at"] as? Int
+							
+							if let mainImage = resultDic["main_image"] as? [String: Any],
+							   let originalUrl = mainImage["original_url"] as? String {
+								news.photoUrl = originalUrl
+							}
+							newsArr.append(news)
+						}
+						
+						DispatchQueue.main.async { completion(.success(newsArr)) }
+					case .failure:
+						DispatchQueue.main.async { completion(.failure(.apiError)) }
+					}
+		}
+		
+	}
+	
 }

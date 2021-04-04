@@ -278,7 +278,6 @@
 			children = (
 				F0F8C5962618EDEF003FC608 /* StockInfoState.swift */,
 				F0F8C5A32618FF8B003FC608 /* Pages */,
-				F03E54AA2619C4F600AB57B2 /* News */,
 				F0F8C5902618CCAE003FC608 /* StockInfoController.swift */,
 				F0F8C5992618EE99003FC608 /* StockInfo.storyboard */,
 			);
@@ -289,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				F03677562619301A00CA7A8A /* Chart */,
+				F03E54AA2619C4F600AB57B2 /* News */,
 				F09B032026199258001FB595 /* Summary */,
 			);
 			path = Pages;

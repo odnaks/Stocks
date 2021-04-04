@@ -171,12 +171,17 @@
                                                         </tableViewCell>
                                                     </prototypes>
                                                 </tableView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="5Li-ca-HR9">
+                                                    <rect key="frame" x="195" y="281" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="5Li-ca-HR9" firstAttribute="centerX" secondItem="hAm-t8-PX4" secondAttribute="centerX" id="55r-lY-Ux1"/>
                                                 <constraint firstAttribute="bottom" secondItem="Y8a-xh-EG3" secondAttribute="bottom" id="RUn-uq-WWW"/>
                                                 <constraint firstItem="Y8a-xh-EG3" firstAttribute="leading" secondItem="hAm-t8-PX4" secondAttribute="leading" id="Rhl-bq-1yd"/>
+                                                <constraint firstItem="5Li-ca-HR9" firstAttribute="centerY" secondItem="hAm-t8-PX4" secondAttribute="centerY" id="T3l-C8-F2E"/>
                                                 <constraint firstItem="Y8a-xh-EG3" firstAttribute="top" secondItem="hAm-t8-PX4" secondAttribute="top" id="XIK-XQ-h1y"/>
                                                 <constraint firstAttribute="trailing" secondItem="Y8a-xh-EG3" secondAttribute="trailing" id="q9l-8F-vXn"/>
                                             </constraints>
@@ -184,6 +189,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="410" height="582"/>
                                         <connections>
+                                            <outlet property="indicator" destination="5Li-ca-HR9" id="7wP-Ap-WvO"/>
                                             <outlet property="tableView" destination="Y8a-xh-EG3" id="y5s-mw-Bls"/>
                                         </connections>
                                     </collectionViewCell>
@@ -200,10 +206,10 @@
                                                     <inset key="scrollIndicatorInsets" minX="0.0" minY="24" maxX="0.0" maxY="0.0"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="newsRightTableCell" id="Cxw-HT-uqK" customClass="NewsTableCell" customModule="YandexSchool" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="28" width="410" height="193"/>
+                                                            <rect key="frame" x="0.0" y="28" width="410" height="206"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cxw-HT-uqK" id="wF4-h5-CGj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="410" height="193"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="410" height="206"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesla files a petition against U.S. labor board order" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0F8-x2-z9F">
@@ -213,16 +219,16 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTj-Cc-icq">
-                                                                        <rect key="frame" x="16" y="47" width="378" height="135"/>
+                                                                        <rect key="frame" x="16" y="51" width="378" height="144"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPu-mJ-3tu">
-                                                                                <rect key="frame" x="12" y="6" width="256" height="122"/>
-                                                                                <mutableString key="text">The electric-car maker filed The electric-car maker filed a petition on Friday with the New Orleans-based U.S. Court of Appeals to review the NLRB's decision and order issued on March 25. In the petition, Tesla asked the court to revThe electric-car maker filed a petition on Friday with the New Orleans-based U.S. Court of Appeals to review the NLRB's decision and order issued on March 25. In the petition, Tesla asked the court to review the order ...iew the order ...a petition on Friday with the New Orleans-based U.S. Court of Appeals to review the NLRB's decision and order issued on March 25. In the petition, Tesla asked the court to review the order ...</mutableString>
-                                                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="10"/>
-                                                                                <nil key="textColor"/>
+                                                                                <rect key="frame" x="12" y="6" width="256" height="131"/>
+                                                                                <string key="text">The electric-car maker filed The electric-car maker filed a petition on Friday with the New Orleans-based U.S. Court of Appeals to review the NLRB's decision and order issued on March 25. In the petition, Tesla asked the court to revThe electric-car maker filed a petition on Friday with the New Orleans-based U.S. Court of Appeals to review the NLRB's decision and order issued on March 25. In the petition, Tesla asked the court to review the order ...iew the order ...a petition on Friday with the New Orleans-based U.S. Court of Appeals to review the NLRB's decision and order issued on March 25. In the petition, Tesla asked the court to review the order ...</string>
+                                                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                                                                <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Dg-9A-tTo">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Dg-9A-tTo">
                                                                                 <rect key="frame" x="272" y="12" width="94" height="94"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="6Dg-9A-tTo" secondAttribute="height" multiplier="1:1" id="CnV-Ci-kvu"/>
@@ -241,7 +247,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sH5-ji-1yB">
-                                                                        <rect key="frame" x="358.5" y="160" width="23.5" height="15"/>
+                                                                        <rect key="frame" x="358.5" y="164" width="23.5" height="24"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="24" id="ZN0-yY-gSE"/>
+                                                                        </constraints>
                                                                         <fontDescription key="fontDescription" name="Montserrat-MediumItalic" family="Montserrat" pointSize="9"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -258,7 +267,7 @@
                                                                     <constraint firstItem="sH5-ji-1yB" firstAttribute="trailing" secondItem="6Dg-9A-tTo" secondAttribute="trailing" id="jhu-Ea-2fL"/>
                                                                     <constraint firstAttribute="bottom" secondItem="fTj-Cc-icq" secondAttribute="bottom" constant="11" id="r1V-4z-ddj"/>
                                                                     <constraint firstItem="0F8-x2-z9F" firstAttribute="top" secondItem="wF4-h5-CGj" secondAttribute="top" constant="10" id="rK2-oQ-1cK"/>
-                                                                    <constraint firstItem="fTj-Cc-icq" firstAttribute="top" secondItem="0F8-x2-z9F" secondAttribute="bottom" id="rV8-ij-DVZ"/>
+                                                                    <constraint firstItem="fTj-Cc-icq" firstAttribute="top" secondItem="0F8-x2-z9F" secondAttribute="bottom" constant="4" id="rV8-ij-DVZ"/>
                                                                 </constraints>
                                                             </tableViewCellContentView>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -271,10 +280,10 @@
                                                             </connections>
                                                         </tableViewCell>
                                                         <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="newsLeftTableCell" id="lVX-df-l0a" customClass="NewsTableCell" customModule="YandexSchool" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="221" width="410" height="190"/>
+                                                            <rect key="frame" x="0.0" y="234" width="410" height="203"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lVX-df-l0a" id="ApK-uR-Ej0">
-                                                                <rect key="frame" x="0.0" y="0.0" width="410" height="190"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="410" height="203"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tesla files a petition against U.S. labor board order" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSw-mq-MTI">
@@ -284,9 +293,9 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eu3-js-ADF">
-                                                                        <rect key="frame" x="16" y="47" width="378" height="132"/>
+                                                                        <rect key="frame" x="16" y="47" width="378" height="145"/>
                                                                         <subviews>
-                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GCE-Im-bz3">
+                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GCE-Im-bz3">
                                                                                 <rect key="frame" x="12" y="12" width="94" height="94"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="94" id="bmD-q2-Oce"/>
@@ -294,15 +303,18 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22:03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHC-TY-4y1">
-                                                                                <rect key="frame" x="12" y="113" width="23.5" height="11"/>
+                                                                                <rect key="frame" x="12" y="113" width="23.5" height="24"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="24" id="dsl-Y0-lEH"/>
+                                                                                </constraints>
                                                                                 <fontDescription key="fontDescription" name="Montserrat-MediumItalic" family="Montserrat" pointSize="9"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The electric-car  the court tsdfadfsdfadsfasdfsdfasdfasdfasdfo review the ord" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzo-3t-a1m">
-                                                                                <rect key="frame" x="118" y="6" width="256" height="119"/>
-                                                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="10"/>
-                                                                                <nil key="textColor"/>
+                                                                                <rect key="frame" x="118" y="6" width="256" height="132"/>
+                                                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
+                                                                                <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
@@ -332,13 +344,25 @@
                                                                 </constraints>
                                                             </tableViewCellContentView>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <connections>
+                                                                <outlet property="bgView" destination="eu3-js-ADF" id="7m0-5e-IHf"/>
+                                                                <outlet property="dateLabel" destination="OHC-TY-4y1" id="Ttg-iK-VuX"/>
+                                                                <outlet property="introLabel" destination="lzo-3t-a1m" id="Vtn-96-wq1"/>
+                                                                <outlet property="photoImageView" destination="GCE-Im-bz3" id="S9E-Le-qG6"/>
+                                                                <outlet property="titleLabel" destination="SSw-mq-MTI" id="5iR-II-3A0"/>
+                                                            </connections>
                                                         </tableViewCell>
                                                     </prototypes>
                                                 </tableView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="OzM-gx-fQE">
+                                                    <rect key="frame" x="195" y="281" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="OzM-gx-fQE" firstAttribute="centerX" secondItem="7Me-eG-BzK" secondAttribute="centerX" id="M7h-ei-iFY"/>
+                                                <constraint firstItem="OzM-gx-fQE" firstAttribute="centerY" secondItem="7Me-eG-BzK" secondAttribute="centerY" id="QKr-DR-cxO"/>
                                                 <constraint firstItem="SwY-Uh-cCp" firstAttribute="top" secondItem="7Me-eG-BzK" secondAttribute="top" id="Tzg-rR-eBe"/>
                                                 <constraint firstAttribute="trailing" secondItem="SwY-Uh-cCp" secondAttribute="trailing" id="ojR-PN-jUy"/>
                                                 <constraint firstItem="SwY-Uh-cCp" firstAttribute="leading" secondItem="7Me-eG-BzK" secondAttribute="leading" id="rnP-5X-sDU"/>
@@ -348,6 +372,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="customSize" width="410" height="582"/>
                                         <connections>
+                                            <outlet property="indicator" destination="OzM-gx-fQE" id="9Xr-gm-ILz"/>
                                             <outlet property="tableView" destination="SwY-Uh-cCp" id="HbE-U1-N2I"/>
                                         </connections>
                                     </collectionViewCell>
@@ -500,6 +525,9 @@
                                                         <constraint firstItem="v2s-lC-L0U" firstAttribute="width" secondItem="EHA-gk-kKW" secondAttribute="width" id="ogO-tq-QeJ"/>
                                                     </constraints>
                                                 </stackView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Vmi-Bd-QRv">
+                                                    <rect key="frame" x="167" y="287.5" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -511,14 +539,17 @@
                                                 <constraint firstAttribute="bottom" secondItem="PPZ-Kw-hps" secondAttribute="bottom" constant="32" id="Y3W-tP-PsA"/>
                                                 <constraint firstItem="eXz-fI-IdV" firstAttribute="top" secondItem="Wkp-iv-O5N" secondAttribute="bottom" constant="14" id="co9-KH-Hsu"/>
                                                 <constraint firstItem="PPZ-Kw-hps" firstAttribute="leading" secondItem="UGM-Ab-2Cs" secondAttribute="leading" constant="16" id="ejk-wG-IXr"/>
+                                                <constraint firstItem="Vmi-Bd-QRv" firstAttribute="centerY" secondItem="UGM-Ab-2Cs" secondAttribute="centerY" id="ekx-Ss-QM0"/>
                                                 <constraint firstItem="Wkp-iv-O5N" firstAttribute="top" secondItem="sSr-J8-2Fw" secondAttribute="bottom" constant="7.5" id="mzQ-Dz-TWO"/>
                                                 <constraint firstItem="sSr-J8-2Fw" firstAttribute="centerX" secondItem="UGM-Ab-2Cs" secondAttribute="centerX" id="rTq-mb-KMw"/>
+                                                <constraint firstItem="Vmi-Bd-QRv" firstAttribute="centerX" secondItem="UGM-Ab-2Cs" secondAttribute="centerX" id="u5q-ly-JLe"/>
                                                 <constraint firstAttribute="trailing" secondItem="PPZ-Kw-hps" secondAttribute="trailing" constant="16" id="uEP-3P-7S4"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="354" height="595"/>
                                         <connections>
                                             <outlet property="graphView" destination="eXz-fI-IdV" id="D3h-qD-xhg"/>
+                                            <outlet property="indicator" destination="Vmi-Bd-QRv" id="FSx-jF-Q0m"/>
                                             <outlet property="subtitleLabel" destination="Wkp-iv-O5N" id="zOX-Jc-Kok"/>
                                             <outlet property="titleLabel" destination="sSr-J8-2Fw" id="UyR-lv-Xhe"/>
                                             <outletCollection property="rangeButtons" destination="MW4-Af-I6D" collectionClass="NSMutableArray" id="Gpi-3B-Gbz"/>

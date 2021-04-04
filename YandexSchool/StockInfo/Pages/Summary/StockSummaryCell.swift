@@ -11,6 +11,7 @@ import UIKit
 class StockSummaryCell: UICollectionViewCell {
 	@IBOutlet weak var tableView: UITableView?
 	private var stock: Stock?
+	@IBOutlet weak var indicator: UIActivityIndicatorView?
 	private var stockSummary: StockSummary?
 	
 	override func awakeFromNib() {
@@ -26,6 +27,7 @@ class StockSummaryCell: UICollectionViewCell {
 	private func getSummary() {
 		guard let ticker = stock?.ticker else { return }
 		API.shared.getSummary(with: ticker) { [weak self] result in
+			self?.indicator?.stopAnimating()
 			switch result {
 			case .success(let stockSummary):
 				self?.stockSummary = stockSummary

@@ -302,7 +302,11 @@ extension StocksListController: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK: - StockCellDelegate
-extension StocksListController: FavoriteManagerDelegate {
+extension StocksListController: StockCellDelegate, StockInfoDelegate {
+	func updateChanges() {
+		updateState()
+	}
+	
 	func addToFavorite(_ stock: Stock) {
 		favorites.append(stock)
 		favoritesSt.append(stock.ticker)

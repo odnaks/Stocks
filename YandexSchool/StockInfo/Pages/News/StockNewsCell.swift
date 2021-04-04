@@ -17,6 +17,7 @@ class StockNewsCell: UICollectionViewCell {
 	
 	func configure(with stock: Stock?) {
 		tableView?.dataSource = self
+		tableView?.delegate = self
 		
 		self.stock = stock
 		getNews()
@@ -39,7 +40,7 @@ class StockNewsCell: UICollectionViewCell {
 	}
 }
 
-extension StockNewsCell: UITableViewDataSource {
+extension StockNewsCell: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return news.count
 	}
@@ -49,6 +50,13 @@ extension StockNewsCell: UITableViewDataSource {
 														as? NewsTableCell else { return UITableViewCell() }
 		cell.configure(with: news[indexPath.row])
 		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let cell = tableView.cellForRow(at: indexPath) as? NewsTableCell,
+			  let link = cell.news?.link,
+			  let url = URL(string: link) else { return }
+		UIApplication.shared.open(url)
 	}
 	
 }

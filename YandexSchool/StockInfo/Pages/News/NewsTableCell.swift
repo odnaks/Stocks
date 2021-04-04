@@ -16,7 +16,7 @@ class NewsTableCell: UITableViewCell {
 	@IBOutlet weak var photoImageView: UIImageView?
 	@IBOutlet weak var dateLabel: UILabel?
 	
-	private var news: News?
+	var news: News?
 	
 	override func prepareForReuse() {
 		super.prepareForReuse()

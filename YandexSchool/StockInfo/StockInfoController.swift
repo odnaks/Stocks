@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol StockInfoDelegate {
+	func addToFavorite(_ stock: Stock)
+	func deleteFromFavorite(_ stock: Stock)
+	func updateChanges()
+}
+
 // id: stockInfoController
 class StockInfoController: UIViewController {
 	
@@ -23,7 +29,7 @@ class StockInfoController: UIViewController {
 	private var currentState: StockInfoState = .chart
 	private var pagesCount = StockInfoState.allCases.count
 	
-	var delegate: FavoriteManagerDelegate?
+	var delegate: StockInfoDelegate?
 	private var isStared: Bool = true
 	
     override func viewDidLoad() {
@@ -84,6 +90,7 @@ class StockInfoController: UIViewController {
 	}
 	
 	@IBAction func clickBack(_ sender: Any) {
+		delegate?.updateChanges()
 		navigationController?.popViewController(animated: true)
 	}
 	

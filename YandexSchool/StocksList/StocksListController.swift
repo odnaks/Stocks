@@ -30,12 +30,12 @@ class StocksListController: UIViewController {
 	var searchSearchButton: UIImageView?
 	var searchWorkItem: DispatchWorkItem?
 	
+	private var favoritesIsLoaded: Bool = false
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView?.dataSource = self
 		tableView?.delegate = self
-//		tableView?.allowsSelection = true
-//		tableView?.isUserInteractionEnabled = true
 		
 		menuStack?.delegate = self
 		menuStack?.configure(with: ["Trands", "Favourite"])
@@ -175,6 +175,7 @@ class StocksListController: UIViewController {
 				self.stocks = self.favorites
 				self.tableView?.reloadData()
 				self.menuStack?.isBlocked = false
+				self.favoritesIsLoaded = true
 			}
 		}
 	}
@@ -196,7 +197,7 @@ class StocksListController: UIViewController {
 		let dispatchGroup = DispatchGroup()
 		for (index, stock) in favorites.enumerated() {
 			dispatchGroup.enter()
-			API.shared.getSummary(with: stock.ticker) { [weak self] result in
+			API.shared.getStockInfo(with: stock.ticker) { [weak self] result in
 				switch result {
 				case .success(let data):
 					guard self?.favorites.count ?? 0 > index else { break }
@@ -230,7 +231,7 @@ class StocksListController: UIViewController {
 				getTrands()
 			}
 		case .favorites:
-			if !favorites.isEmpty {
+			if !favorites.isEmpty && favoritesIsLoaded {
 				stocks = favorites
 				tableView?.reloadData()
 			} else {

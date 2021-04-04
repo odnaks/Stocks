@@ -47,17 +47,29 @@ class StockInfoController: UIViewController {
 	private func setupCollectionView() {
 		collectionView?.dataSource = self
 		collectionView?.delegate = self
+		collectionView?.contentInsetAdjustmentBehavior = .never
+		collectionView?.automaticallyAdjustsScrollIndicatorInsets = false
+		collectionView?.isPagingEnabled = true
 		
 		collectionView?.delaysContentTouches = false
 		collectionView?.contentInset = UIEdgeInsets.zero
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .horizontal
 		layout.minimumLineSpacing = 0
+		layout.minimumInteritemSpacing = 0
 		layout.sectionInset = UIEdgeInsets.zero
-		guard let size = collectionView?.bounds.size else { return }
-		layout.itemSize = CGSize(width: size.width, height: size.height)
+		layout.invalidateLayout()
+		guard let cv = collectionView else { return }
+		var statusBarHeight: CGFloat
+		if #available(iOS 13.0, *) {
+			let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+			statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+		} else {
+			statusBarHeight = UIApplication.shared.statusBarFrame.height
+		}
+		layout.itemSize = CGSize(width: cv.safeAreaLayoutGuide.layoutFrame.width,
+								 height: cv.safeAreaLayoutGuide.layoutFrame.height - statusBarHeight)
 		collectionView?.collectionViewLayout = layout
-		collectionView?.isPagingEnabled = true
 	}
 	
 	private func setupStockInfo() {
@@ -124,6 +136,7 @@ extension StockInfoController: UICollectionViewDataSource, UICollectionViewDeleg
 			return cell
 		} else {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockSummaryCell", for: indexPath) as? StockSummaryCell else { return UICollectionViewCell() }
+			cell.configure(with: stock)
 			return cell
 		}
 	}

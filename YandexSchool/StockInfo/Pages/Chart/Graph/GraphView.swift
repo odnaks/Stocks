@@ -20,7 +20,7 @@ class GraphView: UIView {
 	private var graphLabelView: GraphLabelView?
 	private let graphLabelWidth: CGFloat = 100
 	private let graphLabelHeight: CGFloat = 70
-	private var step: CGFloat = 0
+	private var step: CGFloat = 1
 	private var graphPadding: CGFloat = 2
 
 	private var prices = [CGFloat]()
@@ -107,7 +107,6 @@ class GraphView: UIView {
 		}
 		return path
 	}
-	
 	
 	// MARK: - calculate
 	private func coordYFor(index: Int) -> CGFloat {

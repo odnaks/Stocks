@@ -30,7 +30,7 @@ extension StocksListController: UISearchBarDelegate {
 						guard let stocks = self?.stocks else { return }
 						for (index, stock) in stocks.enumerated() {
 							dg.enter()
-							API.shared.getSummary(with: stock.ticker) { summaryResult in
+							API.shared.getStockInfo(with: stock.ticker) { summaryResult in
 								dg.leave()
 								switch summaryResult {
 								case .success(let summaryStock):

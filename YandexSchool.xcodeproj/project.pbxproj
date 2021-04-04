@@ -45,6 +45,8 @@
 		F06A64182609473C001CD275 /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06A64172609473C001CD275 /* StockCell.swift */; };
 		F07AD2D3260EC4E000CE4B28 /* MenuStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */; };
 		F09B031926196144001FB595 /* Date+getFormattedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B031826196144001FB595 /* Date+getFormattedDate.swift */; };
+		F09B031E26198837001FB595 /* StockSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B031D26198837001FB595 /* StockSummary.swift */; };
+		F09B032226199281001FB595 /* SummaryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B032126199281001FB595 /* SummaryTableCell.swift */; };
 		F0AEAA23261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */; };
 		F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AEAA252612471900BFC3AD /* Double+rounded.swift */; };
 		F0F8C5912618CCAE003FC608 /* StockInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F8C5902618CCAE003FC608 /* StockInfoController.swift */; };
@@ -98,6 +100,8 @@
 		F06A64172609473C001CD275 /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		F07AD2D2260EC4E000CE4B28 /* MenuStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStack.swift; sourceTree = "<group>"; };
 		F09B031826196144001FB595 /* Date+getFormattedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+getFormattedDate.swift"; sourceTree = "<group>"; };
+		F09B031D26198837001FB595 /* StockSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockSummary.swift; sourceTree = "<group>"; };
+		F09B032126199281001FB595 /* SummaryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableCell.swift; sourceTree = "<group>"; };
 		F0AEAA22261240ED00BFC3AD /* StocksListController+SearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StocksListController+SearchBarDelegate.swift"; sourceTree = "<group>"; };
 		F0AEAA252612471900BFC3AD /* Double+rounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+rounded.swift"; sourceTree = "<group>"; };
 		F0F8C5902618CCAE003FC608 /* StockInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockInfoController.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				F02657AE260938780011AA21 /* Stock.swift */,
+				F09B031D26198837001FB595 /* StockSummary.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,6 +248,15 @@
 			path = System;
 			sourceTree = "<group>";
 		};
+		F09B032026199258001FB595 /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				F0F8C5A02618FF19003FC608 /* StockSummaryCell.swift */,
+				F09B032126199281001FB595 /* SummaryTableCell.swift */,
+			);
+			path = Summary;
+			sourceTree = "<group>";
+		};
 		F0F8C5402617CB18003FC608 /* StockInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,7 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				F03677562619301A00CA7A8A /* Chart */,
-				F0F8C5A02618FF19003FC608 /* StockSummaryCell.swift */,
+				F09B032026199258001FB595 /* Summary */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -455,6 +469,7 @@
 				F0FDF90C2611270E00D572E4 /* StocksListState.swift in Sources */,
 				F036775C2619356C00CA7A8A /* GraphLabelView.swift in Sources */,
 				F036774D261929A500CA7A8A /* UIButton+cornerRadius.swift in Sources */,
+				F09B032226199281001FB595 /* SummaryTableCell.swift in Sources */,
 				F0367746261925F100CA7A8A /* GraphView.swift in Sources */,
 				F0F8C5912618CCAE003FC608 /* StockInfoController.swift in Sources */,
 				F02657AF260938780011AA21 /* Stock.swift in Sources */,
@@ -462,6 +477,7 @@
 				F058B3672607D4A0004E76FB /* SceneDelegate.swift in Sources */,
 				F0AEAA262612471900BFC3AD /* Double+rounded.swift in Sources */,
 				F063113F260F8D3E0012748F /* UIButton+changeColor.swift in Sources */,
+				F09B031E26198837001FB595 /* StockSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

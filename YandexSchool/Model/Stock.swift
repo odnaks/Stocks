@@ -22,7 +22,7 @@ struct Stock {
 		self.isFavorite = false
 	}
 	
-	// summary
+	// full info
 	init(ticker: String, name: String, currentPrice: Double, changeValue: Double, changePercent: Double, website: URL?) {
 		self.ticker = ticker
 		self.name = name

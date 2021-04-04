@@ -134,8 +134,12 @@ extension StockInfoController: UICollectionViewDataSource, UICollectionViewDeleg
 			cell.delegate = self
 			cell.configure(with: stock)
 			return cell
-		} else {
+		} else if indexPath.row == 1 {
 			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockSummaryCell", for: indexPath) as? StockSummaryCell else { return UICollectionViewCell() }
+			cell.configure(with: stock)
+			return cell
+		} else {
+			guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stockNewsCell", for: indexPath) as? StockNewsCell else { return UICollectionViewCell() }
 			cell.configure(with: stock)
 			return cell
 		}

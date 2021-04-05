@@ -149,9 +149,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="aCs-hE-Rr9">
-                                <rect key="frame" x="197" y="438" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="FRI-sw-clP">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
                             </activityIndicatorView>
                             <stackView opaque="NO" contentMode="bottomLeft" alignment="bottom" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="uFM-Kw-zWE" customClass="MenuStack" customModule="YandexSchool" customModuleProvider="target">
                                 <rect key="frame" x="20" y="100" width="46" height="30"/>
@@ -169,7 +168,9 @@
                         <constraints>
                             <constraint firstItem="mmq-cg-VUw" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" constant="10" id="1eB-bz-6Ys"/>
                             <constraint firstItem="iXL-ea-UCT" firstAttribute="top" secondItem="mmq-cg-VUw" secondAttribute="bottom" constant="62" id="4lI-Dr-VHu"/>
+                            <constraint firstItem="FRI-sw-clP" firstAttribute="centerY" secondItem="MdD-6g-Kqt" secondAttribute="centerY" id="7T0-ze-v1M"/>
                             <constraint firstItem="mmq-cg-VUw" firstAttribute="top" secondItem="MdD-6g-Kqt" secondAttribute="top" id="AOv-CY-4qo"/>
+                            <constraint firstItem="FRI-sw-clP" firstAttribute="centerX" secondItem="MdD-6g-Kqt" secondAttribute="centerX" id="Q0D-Ws-Gzy"/>
                             <constraint firstItem="iXL-ea-UCT" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" constant="16" id="ZK4-ye-E0g"/>
                             <constraint firstItem="MdD-6g-Kqt" firstAttribute="trailing" secondItem="iXL-ea-UCT" secondAttribute="trailing" constant="16" id="hpY-kW-clS"/>
                             <constraint firstItem="uFM-Kw-zWE" firstAttribute="leading" secondItem="MdD-6g-Kqt" secondAttribute="leading" constant="20" id="jzj-3d-iX2"/>
@@ -181,7 +182,7 @@
                     <navigationItem key="navigationItem" id="PeN-fh-HrE"/>
                     <connections>
                         <outlet property="constraintTableToSearchBarTop" destination="4lI-Dr-VHu" id="4Vw-hI-VsM"/>
-                        <outlet property="indicator" destination="aCs-hE-Rr9" id="Hal-UY-dUk"/>
+                        <outlet property="indicator" destination="FRI-sw-clP" id="b5i-h7-kwe"/>
                         <outlet property="menuStack" destination="uFM-Kw-zWE" id="y29-Nk-njY"/>
                         <outlet property="searchBar" destination="mmq-cg-VUw" id="H1R-Oh-cKM"/>
                         <outlet property="tableView" destination="iXL-ea-UCT" id="ZW3-mc-ZEz"/>

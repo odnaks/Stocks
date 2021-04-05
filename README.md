@@ -1,3 +1,6 @@
+```
+pod install
+```
 # Stocks
 ### Test task for Yandex Mobile School
 
